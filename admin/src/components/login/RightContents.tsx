@@ -1,16 +1,21 @@
 // lib
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { passwordValidation } from "../../utils/Validation";
 
 // components
+import { loginState } from "../../state/atom";
+import { passwordValidation } from "../../utils/Validation";
 
 // img
 
 export default function RightContents() {
   // push
   const navigate = useNavigate();
+
+  // recoil
+  const setIsLogged = useSetRecoilState(loginState);
 
   // id and pw
   const [userId, setUserId] = useState("");
@@ -24,13 +29,13 @@ export default function RightContents() {
   // loginHandle
   const loginSubmit = () => {
     if (userId === "") {
-      setUserIdError((prev) => true);
+      setUserIdError((prev): boolean => true);
       return;
     }
 
     if (!passwordValidation.test(userPw)) {
-      setUserIdError((prev) => false);
-      setUserPwError((prev) => true);
+      setUserIdError((prev): boolean => false);
+      setUserPwError((prev): boolean => true);
       return;
     }
 
@@ -39,10 +44,11 @@ export default function RightContents() {
 
     if (userId === REALUSERID && userPw === REALUSERPASSWORD) {
       navigate("/list");
+      setIsLogged((prev): boolean => true);
     } else {
-      setUserIdError((prev) => false);
-      setUserPwError((prev) => false);
-      setLoginError((prev) => true);
+      setUserIdError((prev): boolean => false);
+      setUserPwError((prev): boolean => false);
+      setLoginError((prev): boolean => true);
     }
   };
 

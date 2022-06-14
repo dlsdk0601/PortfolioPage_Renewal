@@ -5,13 +5,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // components
 import LoginPage from "./pages/LoginPage";
 import ListPage from "./pages/ListPage";
+import NavBar from "./components/nav/NavBar";
+import { useRecoilValue } from "recoil";
+import { loginState } from "./state/atom";
 
 // img
 
+// type or interfacc
+
 function App() {
+  const isLogged = useRecoilValue<boolean>(loginState);
+
   return (
     <>
-      {/* <div>header</div> */}
+      {isLogged && <NavBar />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
