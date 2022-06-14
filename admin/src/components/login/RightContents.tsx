@@ -1,24 +1,53 @@
 // lib
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { passwordValidation } from "../../utils/Validation";
 
 // components
 
 // img
 
 export default function RightContents() {
+  // push
+  const navigate = useNavigate();
+
+  // id and pw
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const loginSubmit = () => {
-    console.log(userId);
-    console.log(userPw);
+  // error
+  const [userIdError, setUserIdError] = useState(false);
+  const [userPwError, setUserPwError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
-    if (userId === "") return;
-    if (userPw === "") return;
+  // loginHandle
+  const loginSubmit = () => {
+    if (userId === "") {
+      setUserIdError((prev) => true);
+      return;
+    }
+
+    if (!passwordValidation.test(userPw)) {
+      setUserIdError((prev) => false);
+      setUserPwError((prev) => true);
+      return;
+    }
+
+    const REALUSERID = process.env.REACT_APP_userID;
+    const REALUSERPASSWORD = process.env.REACT_APP_userPW;
+
+    if (userId === REALUSERID && userPw === REALUSERPASSWORD) {
+      navigate("/list");
+    } else {
+      setUserIdError((prev) => false);
+      setUserPwError((prev) => false);
+      setLoginError((prev) => true);
+    }
   };
 
-  const validation = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  // enter키 handle
+  const enterKeyPressHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
 
     if (key === "Enter") {
@@ -30,11 +59,11 @@ export default function RightContents() {
     <Wrapper>
       <RightArticle>
         <RightTitle>SignIn</RightTitle>
-        <LoginForm onSubmit={loginSubmit}>
+        <LoginForm>
           <InputTag
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            onKeyDown={validation}
+            onKeyDown={enterKeyPressHandle}
             placeholder="Enter Admin ID"
             type="text"
             name="adminId"
@@ -42,12 +71,15 @@ export default function RightContents() {
           <InputTag
             value={userPw}
             onChange={(e) => setUserPw(e.target.value)}
-            onKeyDown={validation}
+            onKeyDown={enterKeyPressHandle}
             placeholder="Enter Admin PassWord"
             type="password"
             name="adminPw"
           />
         </LoginForm>
+        <ErrorText>{userIdError && "아이디를 입력해주세요."}</ErrorText>
+        <ErrorText>{userPwError && "비밀번호형식이 잘못되었습니다."}</ErrorText>
+        <ErrorText>{loginError && "로그인에 실패하였습니다."}</ErrorText>
         <ButtonBox>
           <LoginButton onClick={loginSubmit} type="submit">
             LOGIN
@@ -91,7 +123,7 @@ const LoginForm = styled.form``;
 
 const InputTag = styled.input`
   width: 100%;
-  margin: 20px auto 20px auto;
+  margin: 20px auto 10px auto;
   border: none;
   border-bottom: 1px solid #b3b3b3;
 
@@ -119,4 +151,9 @@ const LoginButton = styled.button`
   background-color: #35464e;
   color: white;
   cursor: pointer;
+`;
+
+const ErrorText = styled.span`
+  font-size: 11px;
+  color: #ee0000;
 `;
