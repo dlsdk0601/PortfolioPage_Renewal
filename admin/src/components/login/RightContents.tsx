@@ -1,5 +1,5 @@
 // lib
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -14,6 +14,10 @@ export default function RightContents() {
   // push
   const navigate = useNavigate();
 
+  // env
+  const REALUSERID = process.env.REACT_APP_userID;
+  const REALUSERPASSWORD = process.env.REACT_APP_userPW;
+
   // recoil
   const setIsLogged = useSetRecoilState(loginState);
 
@@ -27,7 +31,7 @@ export default function RightContents() {
   const [loginError, setLoginError] = useState(false);
 
   // loginHandle
-  const loginSubmit = () => {
+  const loginSubmit = useCallback(() => {
     if (userId === "") {
       setUserIdError((prev): boolean => true);
       return;
@@ -39,18 +43,16 @@ export default function RightContents() {
       return;
     }
 
-    const REALUSERID = process.env.REACT_APP_userID;
-    const REALUSERPASSWORD = process.env.REACT_APP_userPW;
-
     if (userId === REALUSERID && userPw === REALUSERPASSWORD) {
       navigate("/list");
       setIsLogged((prev): boolean => true);
+      sessionStorage.setItem("Access_Token", "USER_ADMOIN_ACCESS_TOKEN");
     } else {
       setUserIdError((prev): boolean => false);
       setUserPwError((prev): boolean => false);
       setLoginError((prev): boolean => true);
     }
-  };
+  }, [userId, userPw]);
 
   // enter키 handle
   const enterKeyPressHandle = (e: React.KeyboardEvent<HTMLInputElement>) => {
