@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { loginState } from "../../state/atom";
-import TapMenu from "./TapMenu";
+import TapList from "./TapList";
 
 // components
 
@@ -13,7 +13,7 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const logoutHandle = () => {
-    setIsLogged((prev) => false);
+    setIsLogged((prev): boolean => false);
     sessionStorage.removeItem("Access_Token");
     navigate("/");
   };
@@ -28,7 +28,7 @@ export default function NavBar() {
         <UserLevel>Admin</UserLevel>
         <Logout onClick={logoutHandle}>Logout</Logout>
       </Account>
-      <TapMenu />
+      <TapList />
     </NavWrapper>
   );
 }
