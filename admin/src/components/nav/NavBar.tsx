@@ -25,7 +25,7 @@ export default function NavBar() {
         <ProfileBox>
           <Profile alt="프로필" src={require("../../styles/img/profile.png")} />
         </ProfileBox>
-        <UserLevel>Admin</UserLevel>
+        <UserLevel>Master</UserLevel>
         <Logout onClick={logoutHandle}>Logout</Logout>
       </Account>
       <TapList />
@@ -52,11 +52,15 @@ const Account = styled.div`
 `;
 
 const ProfileBox = styled.figure`
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
 `;
 
-const Profile = styled.img``;
+const Profile = styled.img`
+  widht: 100%;
+  height: 100%;
+`;
+
 const UserLevel = styled.span``;
 
 const Logout = styled.button`
@@ -68,5 +72,5 @@ const Logout = styled.button`
 `;
 
 const Logo = styled.h1`
-  font-size: 22px;
+  font-size: 18px;
 `;
