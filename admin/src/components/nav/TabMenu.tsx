@@ -1,5 +1,6 @@
 // lib
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // components
@@ -10,8 +11,19 @@ export default function TabMenu(props: {
   whiteImg: string;
   isActive: boolean;
 }) {
+  const navigate = useNavigate();
+
+  const clickTabMenuHandle = (tapName: string) => {
+    const path: string = "/" + tapName.toLocaleLowerCase();
+
+    navigate(path);
+  };
+
   return (
-    <TabMenuWrapper isActive={props.isActive}>
+    <TabMenuWrapper
+      onClick={() => clickTabMenuHandle(props.tapName)}
+      isActive={props.isActive}
+    >
       <MenuImageBox>
         <MenuImage
           src={props.isActive ? props.darkImg : props.whiteImg}

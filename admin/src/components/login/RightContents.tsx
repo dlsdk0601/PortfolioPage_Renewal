@@ -44,9 +44,9 @@ export default function RightContents() {
     }
 
     if (userId === REALUSERID && userPw === REALUSERPASSWORD) {
-      navigate("/list");
       setIsLogged((prev): boolean => true);
       sessionStorage.setItem("Access_Token", "USER_ADMOIN_ACCESS_TOKEN");
+      navigate("/main");
     } else {
       setUserIdError((prev): boolean => false);
       setUserPwError((prev): boolean => false);

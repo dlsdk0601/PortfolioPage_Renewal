@@ -1,5 +1,6 @@
 // lib
 import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import TabMenu from "./TabMenu";
 
@@ -22,32 +23,30 @@ export default function TapList() {
     },
     {
       id: 2,
-      tapName: "upload",
+      tapName: "Upload",
       darkImg: require("../../styles/img/darkUpload.png"),
       whiteImg: require("../../styles/img/whiteUpload.png"),
     },
     {
       id: 3,
-      tapName: "testimonial",
+      tapName: "Testimonial",
       darkImg: require("../../styles/img/darkPeople.png"),
       whiteImg: require("../../styles/img/whitePeople.png"),
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { pathname } = useLocation();
 
   return (
     <>
-      {tabMenuList.map((item: ITabMenuList, index: number) => (
-        <div onClick={() => setActiveIndex(index)}>
-          <TabMenu
-            key={item.id}
-            tapName={item.tapName}
-            darkImg={item.darkImg}
-            whiteImg={item.whiteImg}
-            isActive={activeIndex === index}
-          />
-        </div>
+      {tabMenuList.map((item: ITabMenuList) => (
+        <TabMenu
+          key={item.id}
+          tapName={item.tapName}
+          darkImg={item.darkImg}
+          whiteImg={item.whiteImg}
+          isActive={pathname === "/" + item?.tapName?.toLowerCase()}
+        />
       ))}
     </>
   );

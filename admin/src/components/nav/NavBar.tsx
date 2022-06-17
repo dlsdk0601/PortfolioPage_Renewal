@@ -18,12 +18,19 @@ export default function NavBar() {
     navigate("/");
   };
 
+  const goToMainPage = () => {
+    navigate("/main");
+  };
+
   return (
     <NavWrapper>
       <Account>
-        <Logo>Portpolio Admin</Logo>
+        <Logo onClick={goToMainPage}>Portpolio Admin</Logo>
         <ProfileBox>
-          <Profile alt="프로필" src={require("../../styles/img/profile.png")} />
+          <Profile
+            alt="프로필"
+            src={require("../../styles/img/logo_white.png")}
+          />
         </ProfileBox>
         <UserLevel>Master</UserLevel>
         <Logout onClick={logoutHandle}>Logout</Logout>
@@ -73,4 +80,5 @@ const Logout = styled.button`
 
 const Logo = styled.h1`
   font-size: 18px;
+  cursor: pointer;
 `;
