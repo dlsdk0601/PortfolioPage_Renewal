@@ -1,5 +1,5 @@
-type IPortfolioList = {
-  num: string;
+export type IPortfolioList = {
+  num: number;
   name: string;
   sitename: string;
   subs: string;
@@ -16,9 +16,9 @@ type IPortfolioList = {
   color: string;
 };
 
-export const portfolioList: IPortfolioList[] = [
+export const fakePortfolioList: IPortfolioList[] = [
   {
-    num: "1",
+    num: 1,
     name: "Portfolio_Project",
     sitename: "Portfolio_JIA",
     subs: "포트폴리오 Web",
@@ -30,13 +30,13 @@ export const portfolioList: IPortfolioList[] = [
     func: "Slick, Modal, ScrollIntoView, Axios, etc Hooks",
     git: "git",
     sitepage: "http://dlsdk0601.dothome.co.kr/",
-    thum: require("../../styles/img/dummyImg.png"),
+    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.09-2021.10",
     responsive: "",
     color: "#666666",
   },
   {
-    num: "2",
+    num: 2,
     name: "Renewal_Project",
     sitename: "MiniDeco",
     subs: "미니데코 WEB/MOBIL 리뉴얼",
@@ -48,13 +48,13 @@ export const portfolioList: IPortfolioList[] = [
     func: "slick, 애니메이션 효과, 상품 진열, PWA build",
     git: "https://github.com/dlsdk0601/renualProject_jQuery",
     sitepage: "https://dlsdk0601.github.io/renualProject_jQuery/",
-    thum: require("../../styles/img/dummyImg.png"),
+    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.06-2021.07",
     responsive: "on",
     color: "#a3714e",
   },
   {
-    num: "5",
+    num: 5,
     name: "Clone_Project",
     sitename: "KGC 인삼공사",
     subs: "KGC 인삼공사 클론프로젝트",
@@ -66,13 +66,13 @@ export const portfolioList: IPortfolioList[] = [
     func: "Canvas, Swiper Library, Slide, Animation",
     git: "https://github.com/dlsdk0601/clone_Project",
     sitepage: "https://dlsdk0601.github.io/clone_Project/",
-    thum: require("../../styles/img/dummyImg.png"),
+    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.08",
     responsive: "",
     color: "#803013",
   },
   {
-    num: "6",
+    num: 6,
     name: "Admin_Project",
     sitename: "Admin Page",
     subs: "관리자 페이지 제작 및 서버 구축",
@@ -84,7 +84,7 @@ export const portfolioList: IPortfolioList[] = [
     func: "Create, Read, Update, Delte",
     git: "https://github.com/dlsdk0601/Admin_Project",
     sitepage: "http://dlsdk0601.dothome.co.kr/admin/login.php",
-    thum: require("../../styles/img/dummyImg.png"),
+    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.08 1주",
     responsive: "",
     color: "#35464e",
