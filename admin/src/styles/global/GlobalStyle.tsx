@@ -1,4 +1,11 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, IColorPalette } from "styled-components";
+
+export const colorPalette: IColorPalette = {
+  MainColor: "#283138",
+  SubColor: "#35464e",
+  MainTextColor: "#283138",
+  SubTextColor: "white",
+};
 
 export const GlobalStyle = createGlobalStyle`
      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');

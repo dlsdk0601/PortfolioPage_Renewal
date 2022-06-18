@@ -63,12 +63,12 @@ const MainWrapper = styled.div`
   width: 70%;
   margin: 200px auto 0 auto;
   height: 100%;
-  color: #283138;
 `;
 
 const MainTitle = styled.h1`
   font-size: 32px;
   margin-bottom: 20px;
+  color: ${(props) => props.theme.MainColor};
 `;
 
 const MainListUl = styled.ul`
@@ -81,8 +81,8 @@ const MainListLi = styled.li`
   width: 300px;
   height: 150px;
   padding-left: 10px;
-  border: 1px solid #283138;
-  border-left: 20px solid #283138;
+  border: 1px solid ${(props) => props.theme.MainColor};
+  border-left: 20px solid ${(props) => props.theme.MainColor};
   border-radius: 20px;
   margin: 40px 0;
   display: flex;

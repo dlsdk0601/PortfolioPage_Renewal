@@ -47,7 +47,8 @@ const TabMenuWrapper = styled.div<{ isActive: boolean }>`
   align-items: center;
   background-color: ${(props) => (props.isActive ? "#e5e5e7" : "none")};
   &:hover {
-    background-color: ${(props) => (props.isActive ? "none" : "#35464e")};
+    background-color: ${(props) =>
+      props.isActive ? "none" : props.theme.SubColor};
   }
 `;
 
@@ -65,5 +66,6 @@ const MenuTitle = styled.span<{ isActive: boolean }>`
   display: inline-block;
   width: 60%;
   font-size: 16px;
-  color: ${(props) => (props.isActive ? "#283138" : "white")};
+  color: ${(props) =>
+    props.isActive ? props.theme.MainColor : props.theme.SubTextColor};
 `;

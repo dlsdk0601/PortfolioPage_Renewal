@@ -101,7 +101,7 @@ export default function RightContents() {
 const Wrapper = styled.div`
   width: 50%;
   height: 100%;
-  background-color: white;
+  background-color: ${(props) => props.theme.SubTextColor};
 `;
 
 const RightArticle = styled.article`
@@ -123,7 +123,7 @@ const RightTitle = styled.h2`
     transform: translate(-50%, 0);
     width: 30px;
     height: 3px;
-    background-color: #35464e;
+    background-color: ${(props) => props.theme.SubColor};
   }
 `;
 
@@ -156,8 +156,8 @@ const LoginButton = styled.button`
   line-height: 3;
   border: none;
   border-radius: 16px;
-  background-color: #35464e;
-  color: white;
+  background-color: ${(props) => props.theme.SubColor};
+  color: ${(props) => props.theme.SubTextColor};
   cursor: pointer;
 `;
 

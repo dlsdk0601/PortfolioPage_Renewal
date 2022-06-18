@@ -43,8 +43,8 @@ export default function NavBar() {
 const NavWrapper = styled.nav`
   width: 10vw;
   height: 100vh;
-  background-color: #283138;
-  color: white;
+  background-color: ${(props) => props.theme.MainColor};
+  color: ${(props) => props.theme.SubTextColor};
 `;
 
 const Account = styled.div`
@@ -71,7 +71,7 @@ const Profile = styled.img`
 const UserLevel = styled.span``;
 
 const Logout = styled.button`
-  color: white;
+  color: ${(props) => props.theme.SubTextColor};
   background: none;
   border: none;
   cursor: pointer;

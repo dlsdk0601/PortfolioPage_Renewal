@@ -28,7 +28,7 @@ export default function LeftContents() {
 const Wrapper = styled.div`
   width: 50%;
   height: 100%;
-  background-color: #35464e;
+  background-color: ${(props) => props.theme.SubColor};
 `;
 
 const WelcomeWrapper = styled.div`
@@ -38,7 +38,7 @@ const WelcomeWrapper = styled.div`
 
 const ContentsTitle = styled.h1`
   margin: 150px 0 50px 0;
-  color: white;
+  color: ${(props) => props.theme.SubTextColor};
   position: relative;
 
   &::after {
@@ -46,7 +46,7 @@ const ContentsTitle = styled.h1`
     display: block;
     width: 100px;
     height: 2px;
-    background-color: white;
+    background-color: ${(props) => props.theme.SubTextColor};
     position: absolute;
     left: 0;
     bottom: -10px;
@@ -54,13 +54,13 @@ const ContentsTitle = styled.h1`
 `;
 
 const ContentsBody = styled.p`
-  color: white;
+  color: ${(props) => props.theme.SubTextColor};
   line-height: 2;
   font-size: 14px;
 `;
 
 const MailLink = styled.a`
-  color: white;
+  color: ${(props) => props.theme.SubTextColor};
   display: block;
   padding: 5px;
   margin-top: 50px;

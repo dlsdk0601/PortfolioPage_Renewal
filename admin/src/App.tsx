@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 // components
 import LoginPage from "./pages/LoginPage";
-import ListPage from "./pages/ListPage";
+import DashboardPage from "./pages/DashboardPage";
 import MainPage from "./pages/MainPage";
 import NavBar from "./components/nav/NavBar";
 import { useRecoilState } from "recoil";
@@ -33,7 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
-          <Route path="/dashboard" element={<ListPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>
