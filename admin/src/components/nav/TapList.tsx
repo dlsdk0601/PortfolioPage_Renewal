@@ -1,10 +1,9 @@
 // lib
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import styled from "styled-components";
-import TabMenu from "./TabMenu";
 
 // components
+import TabMenu from "./TabMenu";
 
 interface ITabMenuList {
   id: number;

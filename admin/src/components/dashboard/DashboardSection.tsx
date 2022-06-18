@@ -1,25 +1,17 @@
 // lib
 import React from "react";
-import styled from "styled-components";
 
 // components
+import PortfolioList from "./PortfolioList";
+import * as S from "../../styles/dashboardStyle/DashboardSectionStyle";
 
 // img
 
 export default function DashboardSection() {
   return (
-    <DashboardSectionWrapper>
-      <DashboardTitle>Dashboard</DashboardTitle>
-    </DashboardSectionWrapper>
+    <S.DashboardSectionWrapper>
+      <S.DashboardTitle>Dashboard</S.DashboardTitle>
+      <PortfolioList />
+    </S.DashboardSectionWrapper>
   );
 }
-
-const DashboardSectionWrapper = styled.div`
-  width: 70%;
-  margin: 100px auto 0 auto;
-`;
-
-const DashboardTitle = styled.h1`
-  color: ${(props) => props.theme.MainColor};
-  font-size: 32px;
-`;

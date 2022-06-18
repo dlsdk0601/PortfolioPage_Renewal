@@ -1,9 +1,9 @@
 // lib
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 // components
+import * as S from "../../styles/mainStyle/MainSectionStyle";
 
 // img
 
@@ -15,107 +15,46 @@ export default function MainSection() {
   };
 
   return (
-    <MainWrapper>
-      <MainTitle>Amin Page에 오신걸 환영합니다.</MainTitle>
-      <MainListUl>
-        <MainListLi onClick={() => clickListCard("/dashboard")}>
-          <FigureForList>
-            <ImgForList
+    <S.MainWrapper>
+      <S.MainTitle>Amin Page에 오신걸 환영합니다.</S.MainTitle>
+      <S.MainListUl>
+        <S.MainListLi onClick={() => clickListCard("/dashboard")}>
+          <S.FigureForList>
+            <S.ImgForList
               alt="logo"
               src={require("../../styles/img/darkDashboard.png")}
             />
-          </FigureForList>
-          <Description>
-            <ListTitle>Dashboard</ListTitle>
-            <ListDescription>리스트 조회</ListDescription>
-          </Description>
-        </MainListLi>
-        <MainListLi onClick={() => clickListCard("/upload")}>
-          <FigureForList>
-            <ImgForList
+          </S.FigureForList>
+          <S.Description>
+            <S.ListTitle>Dashboard</S.ListTitle>
+            <S.ListDescription>리스트 조회</S.ListDescription>
+          </S.Description>
+        </S.MainListLi>
+        <S.MainListLi onClick={() => clickListCard("/upload")}>
+          <S.FigureForList>
+            <S.ImgForList
               alt="logo"
               src={require("../../styles/img/darkUpload.png")}
             />
-          </FigureForList>
-          <Description>
-            <ListTitle>Upload</ListTitle>
-            <ListDescription>포트폴이로 및 추천서 등록</ListDescription>
-          </Description>
-        </MainListLi>
-        <MainListLi onClick={() => clickListCard("/testimonial")}>
-          <FigureForList>
-            <ImgForList
+          </S.FigureForList>
+          <S.Description>
+            <S.ListTitle>Upload</S.ListTitle>
+            <S.ListDescription>포트폴이로 및 추천서 등록</S.ListDescription>
+          </S.Description>
+        </S.MainListLi>
+        <S.MainListLi onClick={() => clickListCard("/testimonial")}>
+          <S.FigureForList>
+            <S.ImgForList
               alt="logo"
               src={require("../../styles/img/darkPeople.png")}
             />
-          </FigureForList>
-          <Description>
-            <ListTitle>Testimonial</ListTitle>
-            <ListDescription>추천서 조회</ListDescription>
-          </Description>
-        </MainListLi>
-      </MainListUl>
-    </MainWrapper>
+          </S.FigureForList>
+          <S.Description>
+            <S.ListTitle>Testimonial</S.ListTitle>
+            <S.ListDescription>추천서 조회</S.ListDescription>
+          </S.Description>
+        </S.MainListLi>
+      </S.MainListUl>
+    </S.MainWrapper>
   );
 }
-
-const MainWrapper = styled.div`
-  width: 70%;
-  margin: 200px auto 0 auto;
-  height: 100%;
-`;
-
-const MainTitle = styled.h1`
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: ${(props) => props.theme.MainColor};
-`;
-
-const MainListUl = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MainListLi = styled.li`
-  width: 300px;
-  height: 150px;
-  padding-left: 10px;
-  border: 1px solid ${(props) => props.theme.MainColor};
-  border-left: 20px solid ${(props) => props.theme.MainColor};
-  border-radius: 20px;
-  margin: 40px 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.3s;
-
-  &:hover {
-    box-shadow: 3px 3px 3px 3px gray;
-  }
-`;
-
-const FigureForList = styled.figure`
-  width: 35px;
-  height: 35px;
-`;
-
-const ImgForList = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-const Description = styled.div`
-  margin-left: 20px;
-`;
-
-const ListTitle = styled.h3`
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 5px;
-`;
-
-const ListDescription = styled.p`
-  font-size: 16px;
-`;

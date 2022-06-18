@@ -2,11 +2,11 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 
 // components
 import { loginState } from "../../state/atom";
 import { passwordValidation } from "../../utils/Validation";
+import * as S from "../../styles/loginStyle/LoginRightContentStyle";
 
 // img
 
@@ -64,11 +64,11 @@ export default function RightContents() {
   };
 
   return (
-    <Wrapper>
-      <RightArticle>
-        <RightTitle>SignIn</RightTitle>
-        <LoginForm>
-          <InputTag
+    <S.Wrapper>
+      <S.RightArticle>
+        <S.RightTitle>SignIn</S.RightTitle>
+        <S.LoginForm>
+          <S.InputTag
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             onKeyDown={enterKeyPressHandle}
@@ -76,7 +76,7 @@ export default function RightContents() {
             type="text"
             name="adminId"
           />
-          <InputTag
+          <S.InputTag
             value={userPw}
             onChange={(e) => setUserPw(e.target.value)}
             onKeyDown={enterKeyPressHandle}
@@ -84,84 +84,18 @@ export default function RightContents() {
             type="password"
             name="adminPw"
           />
-        </LoginForm>
-        <ErrorText>{userIdError && "아이디를 입력해주세요."}</ErrorText>
-        <ErrorText>{userPwError && "비밀번호형식이 잘못되었습니다."}</ErrorText>
-        <ErrorText>{loginError && "로그인에 실패하였습니다."}</ErrorText>
-        <ButtonBox>
-          <LoginButton onClick={loginSubmit} type="submit">
+        </S.LoginForm>
+        <S.ErrorText>{userIdError && "아이디를 입력해주세요."}</S.ErrorText>
+        <S.ErrorText>
+          {userPwError && "비밀번호형식이 잘못되었습니다."}
+        </S.ErrorText>
+        <S.ErrorText>{loginError && "로그인에 실패하였습니다."}</S.ErrorText>
+        <S.ButtonBox>
+          <S.LoginButton onClick={loginSubmit} type="submit">
             LOGIN
-          </LoginButton>
-        </ButtonBox>
-      </RightArticle>
-    </Wrapper>
+          </S.LoginButton>
+        </S.ButtonBox>
+      </S.RightArticle>
+    </S.Wrapper>
   );
 }
-
-const Wrapper = styled.div`
-  width: 50%;
-  height: 100%;
-  background-color: ${(props) => props.theme.SubTextColor};
-`;
-
-const RightArticle = styled.article`
-  width: 50%;
-  margin: 100px auto 0 auto;
-`;
-
-const RightTitle = styled.h2`
-  text-align: center;
-  width: 100%;
-  margin-bottom: 100px;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translate(-50%, 0);
-    width: 30px;
-    height: 3px;
-    background-color: ${(props) => props.theme.SubColor};
-  }
-`;
-
-const LoginForm = styled.form``;
-
-const InputTag = styled.input`
-  width: 100%;
-  margin: 20px auto 10px auto;
-  border: none;
-  border-bottom: 1px solid #b3b3b3;
-
-  &:focus {
-    outline: none;
-    background-color: none;
-  }
-`;
-
-const ButtonBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoginButton = styled.button`
-  margin: 0 auto;
-  margin-top: 80px;
-  width: 150px;
-  font-size: 16px;
-  line-height: 3;
-  border: none;
-  border-radius: 16px;
-  background-color: ${(props) => props.theme.SubColor};
-  color: ${(props) => props.theme.SubTextColor};
-  cursor: pointer;
-`;
-
-const ErrorText = styled.span`
-  font-size: 11px;
-  color: #ee0000;
-`;
