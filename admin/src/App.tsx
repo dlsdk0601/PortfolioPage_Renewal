@@ -35,7 +35,10 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/dashboard/:id" element={<DashboardDetailPage />} />
+          <Route
+            path="/dashboard/:selectedId"
+            element={<DashboardDetailPage />}
+          />
         </Routes>
       </BrowserRouter>
     </Wrapper>
