@@ -44,7 +44,7 @@ export default function TapList() {
           tapName={item.tapName}
           darkImg={item.darkImg}
           whiteImg={item.whiteImg}
-          isActive={pathname === "/" + item?.tapName?.toLowerCase()}
+          isActive={pathname.indexOf(item.tapName.toLowerCase()) !== -1}
         />
       ))}
     </>

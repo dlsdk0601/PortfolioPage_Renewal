@@ -1,18 +1,22 @@
 import db from "mongoose";
 
 export interface IUserSchema {
-  name: string;
-  email: string;
-  password: string;
-  role: number;
-  token: string;
-  tokenExp: number;
+  name?: string;
+  email?: string;
+  password?: string;
+  role?: number;
+  token?: string;
+  tokenExp?: number;
 }
 
 const userSchema = new db.Schema({
   name: {
     type: String,
     maxlength: 50,
+  },
+  id: {
+    type: String,
+    maxlength: 10,
   },
   email: {
     type: String,

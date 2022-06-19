@@ -10,6 +10,7 @@ import MainPage from "./pages/MainPage";
 import NavBar from "./components/nav/NavBar";
 import { useRecoilState } from "recoil";
 import { loginState } from "./state/atom";
+import DashboardDetailPage from "./pages/DashboardDetailPage";
 
 // img
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard/:id" element={<DashboardDetailPage />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>
