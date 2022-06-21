@@ -10,10 +10,13 @@ export type IPortfolioList = {
   func: string;
   git: string;
   sitepage: string;
-  thum: string;
   howlong: string;
   responsive: string;
   color: string;
+  img1: string;
+  img2: string;
+  img3: string;
+  capture: string;
 };
 
 export const fakePortfolioList: IPortfolioList[] = [
@@ -30,7 +33,10 @@ export const fakePortfolioList: IPortfolioList[] = [
     func: "Slick, Modal, ScrollIntoView, Axios, etc Hooks",
     git: "git",
     sitepage: "http://dlsdk0601.dothome.co.kr/",
-    thum: require("../styles/img/dummyImg.png"),
+    img1: require("../styles/img/dummyImg.png"),
+    img2: require("../styles/img/dummyImg.png"),
+    img3: require("../styles/img/dummyImg.png"),
+    capture: require("../styles/img/pages3.png"),
     howlong: "2021.09-2021.10",
     responsive: "",
     color: "#666666",
@@ -48,10 +54,13 @@ export const fakePortfolioList: IPortfolioList[] = [
     func: "slick, 애니메이션 효과, 상품 진열, PWA build",
     git: "https://github.com/dlsdk0601/renualProject_jQuery",
     sitepage: "https://dlsdk0601.github.io/renualProject_jQuery/",
-    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.06-2021.07",
     responsive: "on",
     color: "#a3714e",
+    img1: require("../styles/img/dummyImg.png"),
+    img2: require("../styles/img/dummyImg.png"),
+    img3: require("../styles/img/dummyImg.png"),
+    capture: require("../styles/img/pages3.png"),
   },
   {
     num: 5,
@@ -66,10 +75,13 @@ export const fakePortfolioList: IPortfolioList[] = [
     func: "Canvas, Swiper Library, Slide, Animation",
     git: "https://github.com/dlsdk0601/clone_Project",
     sitepage: "https://dlsdk0601.github.io/clone_Project/",
-    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.08",
     responsive: "",
     color: "#803013",
+    img1: require("../styles/img/dummyImg.png"),
+    img2: require("../styles/img/dummyImg.png"),
+    img3: require("../styles/img/dummyImg.png"),
+    capture: require("../styles/img/pages3.png"),
   },
   {
     num: 6,
@@ -84,9 +96,12 @@ export const fakePortfolioList: IPortfolioList[] = [
     func: "Create, Read, Update, Delte",
     git: "https://github.com/dlsdk0601/Admin_Project",
     sitepage: "http://dlsdk0601.dothome.co.kr/admin/login.php",
-    thum: require("../styles/img/dummyImg.png"),
     howlong: "2021.08 1주",
     responsive: "",
     color: "#35464e",
+    img1: require("../styles/img/dummyImg.png"),
+    img2: require("../styles/img/dummyImg.png"),
+    img3: require("../styles/img/dummyImg.png"),
+    capture: require("../styles/img/pages3.png"),
   },
 ];

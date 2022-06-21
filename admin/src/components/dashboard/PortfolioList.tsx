@@ -23,7 +23,7 @@ export default function PortfolioList() {
             key={listItem.num}
             portfolioId={listItem.num}
             portfolioName={listItem.name}
-            portfolioPoster={listItem.thum}
+            portfolioPoster={listItem.img1}
           />
         ))
       ) : (

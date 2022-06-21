@@ -1,11 +1,16 @@
 // components
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailSectionStyle";
 import { fakePortfolioList, IPortfolioList } from "../../../mok/Mok";
+import DashboardDetailMaking from "./DashboardDetailMaking";
+import DashboardDetailOverView from "./DashboardDetailOverView";
+import DashboardDetailFocus from "./DashboardDetailFocus";
 
 // lib
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../../common/BackButton";
+import DashboardDetailThumnail from "./DashboardDetailThumnail";
+import DashboardDetailCapture from "./DashboardDetailCapture";
 
 //img
 
@@ -23,7 +28,10 @@ export default function DashboardDetailSection() {
     func: "",
     git: "",
     sitepage: "",
-    thum: "",
+    img1: "",
+    img2: "",
+    img3: "",
+    capture: "",
     howlong: "",
     responsive: "",
     color: "",
@@ -43,9 +51,13 @@ export default function DashboardDetailSection() {
     <>
       <BackButton />
       <S.DashboardDetailSectionWrapper>
-        <S.DashboardDetailTitle>
-          {selectedPortfolio.name}
-        </S.DashboardDetailTitle>
+        <div>
+          <DashboardDetailMaking selectedPortfolio={selectedPortfolio} />
+          <DashboardDetailOverView selectedPortfolio={selectedPortfolio} />
+          <DashboardDetailFocus selectedPortfolio={selectedPortfolio} />
+        </div>
+        <DashboardDetailThumnail selectedPortfolio={selectedPortfolio} />
+        <DashboardDetailCapture selectedPortfolio={selectedPortfolio} />
       </S.DashboardDetailSectionWrapper>
     </>
   );
