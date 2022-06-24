@@ -5,6 +5,7 @@ import User, { IUserSchema } from "../models/User";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cookie from "cookie-parser";
 
 // 환경변수
 dotenv.config();
@@ -13,6 +14,10 @@ dotenv.config();
 const app = express();
 
 // app 설정
+
+// cookie-parser 사용
+app.use(cookie());
+
 // --  apllication/x-www-form-urlencoded 이렇게 된 데이터를 분석해서 가져옴
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -55,10 +60,10 @@ app.post("/register", (req, res) => {
   // user는 우리가 만든 User의 인스턴스가 되는거임.
   // 때문에 서버통신에서 각 해당 값들 잘 넘겨줘야함.
   user.save((err: Error | null, userInfo: IUserSchema) => {
-    if (err) return res.json({ success: false, err });
+    if (err) return res.json({ result: false, err });
 
     return res.status(200).json({
-      success: true,
+      result: true,
       userInfo,
     });
   });
@@ -72,13 +77,11 @@ app.post("/login", async (req, res) => {
 
   // 요청된 아이디을 db에서 찾기
   const userInfo: IUserSchema | null = await User.findOne({ id });
-  // , async (err: Error | null, userInfo: IUserSchema) => {
-  // if (err) return res.json({ success: false, err });
 
   // 유저 정보가 없다면
   if (!userInfo) {
     return res.json({
-      loginSuccess: false,
+      result: false,
       message: "아이디가 존재하지 않습니다.",
     });
   }
@@ -88,29 +91,33 @@ app.post("/login", async (req, res) => {
 
   if (!check) {
     return res.json({
-      loginSuccess: false,
+      result: false,
       message: "비밀번호가 틀렸습니다.",
     });
   }
 
   // 비밀번호 맞으면 토근 생성
   const { _id: userId } = userInfo;
-  const token = jwt.sign({ userId }, "secretToken");
+  const secret = process.env.NODE_JWT_SECRET || "";
+  const token = jwt.sign({ userId }, secret, { expiresIn: "3d" });
   userInfo.token = token;
 
   const userInfoSave: IUserSchema | null = await userInfo.save();
 
   if (!userInfoSave) {
     return res.json({
-      loginSuccess: false,
+      result: false,
       message: "토큰 저장 실패",
     });
   }
 
+  res.cookie("JWTTOKEN", token, {
+    maxAge: 1000 * 60 * 60 * 24 * 3,
+  });
+
   return res.json({
-    loginSuccess: true,
+    result: true,
     message: "로그인 성공",
-    userInfo,
   });
 });
 
