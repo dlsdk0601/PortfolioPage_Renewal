@@ -1,11 +1,12 @@
 import express from "express";
-import db, { AnyExpression } from "mongoose";
+import db from "mongoose";
 import dotenv from "dotenv";
 import User, { IUserSchema } from "../models/User";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookie from "cookie-parser";
+import cors from "cors";
 
 // 환경변수
 dotenv.config();
@@ -14,6 +15,14 @@ dotenv.config();
 const app = express();
 
 // app 설정
+
+// cors 오류 방지
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // cookie-parser 사용
 app.use(cookie());
@@ -81,8 +90,9 @@ app.post("/login", async (req, res) => {
   // 유저 정보가 없다면
   if (!userInfo) {
     return res.json({
-      result: false,
+      result: true,
       message: "아이디가 존재하지 않습니다.",
+      userInfo: null,
     });
   }
 
@@ -91,8 +101,9 @@ app.post("/login", async (req, res) => {
 
   if (!check) {
     return res.json({
-      result: false,
+      result: true,
       message: "비밀번호가 틀렸습니다.",
+      userInfo: null,
     });
   }
 
@@ -106,18 +117,16 @@ app.post("/login", async (req, res) => {
 
   if (!userInfoSave) {
     return res.json({
-      result: false,
+      result: true,
       message: "토큰 저장 실패",
+      userInfo: null,
     });
   }
-
-  res.cookie("JWTTOKEN", token, {
-    maxAge: 1000 * 60 * 60 * 24 * 3,
-  });
 
   return res.json({
     result: true,
     message: "로그인 성공",
+    userInfo,
   });
 });
 

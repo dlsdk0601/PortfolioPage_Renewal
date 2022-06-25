@@ -7,6 +7,8 @@ import { useSetRecoilState } from "recoil";
 import { loginState } from "../../state/atom";
 import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
+import { Axios } from "../../api/Axios";
+import { AxiosResponse } from "axios";
 
 // img
 
@@ -31,7 +33,7 @@ export default function RightContents() {
   const [loginError, setLoginError] = useState(false);
 
   // loginHandle
-  const loginSubmit = useCallback(() => {
+  const loginSubmit = useCallback(async () => {
     if (userId === "") {
       setUserIdError((prev): boolean => true);
       return;
@@ -43,14 +45,32 @@ export default function RightContents() {
       return;
     }
 
-    if (userId === REALUSERID && userPw === REALUSERPASSWORD) {
+    const loginRequset = {
+      id: userId,
+      password: userPw,
+    };
+    const loginData: AxiosResponse<any> = await Axios.post(
+      "/login",
+      loginRequset
+    );
+    const {
+      data: { userInfo, result },
+    } = loginData;
+
+    if (!result) {
+      alert("통신 실패");
+      return;
+    }
+
+    if (userInfo) {
+      const { token } = userInfo;
       setIsLogged((prev): boolean => true);
-      sessionStorage.setItem("Access_Token", "USER_ADMOIN_ACCESS_TOKEN");
+      sessionStorage.setItem("JWTTOKEN", token);
       navigate("/main");
     } else {
+      setLoginError((prev): boolean => true);
       setUserIdError((prev): boolean => false);
       setUserPwError((prev): boolean => false);
-      setLoginError((prev): boolean => true);
     }
   }, [userId, userPw]);
 
