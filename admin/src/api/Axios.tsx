@@ -41,7 +41,7 @@ export const Axios = axios.create({
   withCredentials: true,
 });
 
-Axios.interceptors.response.use(function (response) {
+Axios.interceptors.response.use(function (response: AxiosResponse) {
   const { data, status } = response;
 
   return data;

@@ -8,9 +8,24 @@ import { loginState } from "../../state/atom";
 import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
 import { Axios } from "../../api/Axios";
-import { AxiosResponse } from "axios";
 
 // img
+
+type IuserInfo = {
+  name?: string;
+  id?: string;
+  email?: string;
+  password?: string;
+  role?: number;
+  token: string;
+  tokenExp?: number;
+};
+
+type ILoginData = {
+  message: string;
+  result: boolean;
+  userInfo: IuserInfo | null;
+};
 
 export default function RightContents() {
   // push
@@ -49,13 +64,9 @@ export default function RightContents() {
       id: userId,
       password: userPw,
     };
-    const loginData: AxiosResponse<any> = await Axios.post(
-      "/login",
-      loginRequset
-    );
-    const {
-      data: { userInfo, result },
-    } = loginData;
+    const loginData: ILoginData = await Axios.post("/login", loginRequset);
+
+    const { userInfo, result } = loginData;
 
     if (!result) {
       alert("통신 실패");
