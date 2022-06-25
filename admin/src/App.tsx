@@ -30,7 +30,7 @@ function App() {
   return (
     <Wrapper>
       <BrowserRouter>
-        {isLogged && <NavBar />}
+        {!isLogged && <NavBar />}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
