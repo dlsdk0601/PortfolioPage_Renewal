@@ -11,10 +11,10 @@ import PortfolioListItem from "./PortfolioListItem";
 
 export default function PortfolioList() {
   const [portfolioList, setPortfolioList] = useState<IPortfolioList[] | []>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [portfolioListisLoading, setPortfolioListIsLoading] = useState(true);
 
   const fetchingFunc = async () => {
-    if (isLoading) return;
+    if (portfolioListisLoading) return;
 
     if (fakePortfolioList.length > 0) {
       setPortfolioList((prev) => fakePortfolioList);
@@ -24,14 +24,16 @@ export default function PortfolioList() {
   useEffect(() => {
     fetchingFunc();
     setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-  }, [isLoading]);
+      setPortfolioListIsLoading(false);
+    }, 1000);
+  }, [portfolioListisLoading]);
 
   return (
-    <S.PortfolioListBox isData={isLoading && portfolioList.length > 0}>
-      {isLoading && <PortfolioListItemSkeleton />}
-      {!isLoading &&
+    <S.PortfolioListBox
+      isData={portfolioListisLoading && portfolioList.length > 0}
+    >
+      {portfolioListisLoading && <PortfolioListItemSkeleton />}
+      {!portfolioListisLoading &&
         portfolioList.length > 0 &&
         portfolioList.map((listItem) => (
           <PortfolioListItem
@@ -41,7 +43,7 @@ export default function PortfolioList() {
             portfolioPoster={listItem.img1}
           />
         ))}
-      {!isLoading && portfolioList.length === 0 && (
+      {!portfolioListisLoading && portfolioList.length === 0 && (
         <S.NoSelectText>조회된 데이터 없습니다</S.NoSelectText>
       )}
     </S.PortfolioListBox>

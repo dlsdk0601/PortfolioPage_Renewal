@@ -4,18 +4,20 @@ import { fakePortfolioList, IPortfolioList } from "../../../mok/Mok";
 import DashboardDetailMaking from "./DashboardDetailMaking";
 import DashboardDetailOverView from "./DashboardDetailOverView";
 import DashboardDetailFocus from "./DashboardDetailFocus";
+import DashboardDetailThumnail from "./DashboardDetailThumnail";
+import DashboardDetailCapture from "./DashboardDetailCapture";
+import DashboardDetailSkeleton from "../../skeleton/dashboardDetail/DashboardDetailSkeleton";
 
 // lib
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../../common/BackButton";
-import DashboardDetailThumnail from "./DashboardDetailThumnail";
-import DashboardDetailCapture from "./DashboardDetailCapture";
 
 //img
 
 export default function DashboardDetailSection() {
   const { selectedId } = useParams();
+  const [portfolioIsLoading, setPortflioIsLoading] = useState(true);
   const [selectedPortfolio, setSelectedPortfoilo] = useState<IPortfolioList>({
     num: 0,
     name: "",
@@ -39,26 +41,35 @@ export default function DashboardDetailSection() {
 
   useEffect(() => {
     if (selectedId === undefined) return;
+    if (!portfolioIsLoading) {
+      return;
+    }
 
     const filterArray: IPortfolioList = fakePortfolioList.find(
       (portfolio): boolean => portfolio.num === parseInt(selectedId)
     ) || { ...selectedPortfolio };
 
     setSelectedPortfoilo({ ...filterArray });
+    setTimeout(() => {
+      setPortflioIsLoading((prev) => false);
+    }, 1000);
   }, []);
 
   return (
     <>
       <BackButton />
-      <S.DashboardDetailSectionWrapper>
-        <div>
-          <DashboardDetailMaking selectedPortfolio={selectedPortfolio} />
-          <DashboardDetailOverView selectedPortfolio={selectedPortfolio} />
-          <DashboardDetailFocus selectedPortfolio={selectedPortfolio} />
-        </div>
-        <DashboardDetailThumnail selectedPortfolio={selectedPortfolio} />
-        <DashboardDetailCapture selectedPortfolio={selectedPortfolio} />
-      </S.DashboardDetailSectionWrapper>
+      {portfolioIsLoading && <DashboardDetailSkeleton />}
+      {!portfolioIsLoading && (
+        <S.DashboardDetailSectionWrapper>
+          <div>
+            <DashboardDetailMaking selectedPortfolio={selectedPortfolio} />
+            <DashboardDetailOverView selectedPortfolio={selectedPortfolio} />
+            <DashboardDetailFocus selectedPortfolio={selectedPortfolio} />
+          </div>
+          <DashboardDetailThumnail selectedPortfolio={selectedPortfolio} />
+          <DashboardDetailCapture selectedPortfolio={selectedPortfolio} />
+        </S.DashboardDetailSectionWrapper>
+      )}
     </>
   );
 }

@@ -1,6 +1,5 @@
 // lib
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React from "react";
 
 // components
 import TabMenu from "./TabMenu";
@@ -10,6 +9,7 @@ interface ITabMenuList {
   tapName: string;
   darkImg: string;
   whiteImg: string;
+  tapLink: string;
 }
 
 export default function TapList() {
@@ -19,32 +19,33 @@ export default function TapList() {
       tapName: "Dashboard",
       darkImg: require("../../styles/img/darkDashboard.png"),
       whiteImg: require("../../styles/img/whiteDashboard.png"),
+      tapLink: "/dashboard",
     },
     {
       id: 2,
       tapName: "Upload",
       darkImg: require("../../styles/img/darkUpload.png"),
       whiteImg: require("../../styles/img/whiteUpload.png"),
+      tapLink: "/upload/portfolio",
     },
     {
       id: 3,
       tapName: "Testimonial",
       darkImg: require("../../styles/img/darkPeople.png"),
       whiteImg: require("../../styles/img/whitePeople.png"),
+      tapLink: "/testimonial",
     },
   ];
 
-  const { pathname } = useLocation();
-
   return (
     <>
-      {tabMenuList.map((item: ITabMenuList) => (
+      {tabMenuList.map((tab: ITabMenuList) => (
         <TabMenu
-          key={item.id}
-          tapName={item.tapName}
-          darkImg={item.darkImg}
-          whiteImg={item.whiteImg}
-          isActive={pathname.indexOf(item.tapName.toLowerCase()) !== -1}
+          key={tab.id}
+          tapName={tab.tapName}
+          darkImg={tab.darkImg}
+          whiteImg={tab.whiteImg}
+          tapLink={tab.tapLink}
         />
       ))}
     </>

@@ -11,6 +11,7 @@ import NavBar from "./components/nav/NavBar";
 import { useRecoilState } from "recoil";
 import { loginState } from "./state/atom";
 import DashboardDetailPage from "./pages/DashboardDetailPage";
+import UploadPage from "./pages/UploadPage";
 
 // img
 
@@ -39,6 +40,7 @@ function App() {
             path="/dashboard/:selectedId"
             element={<DashboardDetailPage />}
           />
+          <Route path="upload/*" element={<UploadPage />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>
