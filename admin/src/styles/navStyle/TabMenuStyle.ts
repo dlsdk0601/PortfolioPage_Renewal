@@ -18,8 +18,8 @@ export const TabMenuWrapper = styled.div<{ isActive: boolean }>`
 `;
 
 export const MenuImageBox = styled.figure`
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 `;
 
 export const MenuImage = styled.img`
@@ -29,7 +29,7 @@ export const MenuImage = styled.img`
 
 export const MenuTitle = styled.span<{ isActive: boolean }>`
   display: inline-block;
-  width: 60%;
+  width: 78%;
   font-size: 16px;
   color: ${(props) =>
     props.isActive ? props.theme.MainColor : props.theme.SubTextColor};

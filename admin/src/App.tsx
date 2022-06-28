@@ -35,9 +35,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/portfoliolist" element={<DashboardPage />} />
           <Route
-            path="/dashboard/:selectedId"
+            path="/portfoliolist/:selectedId"
             element={<DashboardDetailPage />}
           />
           <Route path="upload/*" element={<UploadPage />} />

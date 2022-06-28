@@ -15,7 +15,7 @@ export default function PortfolioListItem(props: {
   const navigate = useNavigate();
 
   const clickPortfolioHandle = () => {
-    navigate(`/dashboard/${props.portfolioId}`);
+    navigate(`/portfoliolist/${props.portfolioId}`);
   };
 
   return (

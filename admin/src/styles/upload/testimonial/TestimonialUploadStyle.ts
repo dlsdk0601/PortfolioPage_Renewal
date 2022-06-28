@@ -6,6 +6,7 @@ export const TestimonialUploadWrapper = styled.div`
   overflow: auto;
   margin: 70px 0 0 3%;
   display: flex;
-  justify-content: flex-satrt;
+  justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 `;

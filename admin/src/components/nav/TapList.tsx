@@ -16,10 +16,10 @@ export default function TapList() {
   const tabMenuList: ITabMenuList[] = [
     {
       id: 1,
-      tapName: "Dashboard",
+      tapName: "PortfolioList",
       darkImg: require("../../styles/img/darkDashboard.png"),
       whiteImg: require("../../styles/img/whiteDashboard.png"),
-      tapLink: "/dashboard",
+      tapLink: "/portfoliolist",
     },
     {
       id: 2,
@@ -30,10 +30,10 @@ export default function TapList() {
     },
     {
       id: 3,
-      tapName: "Testimonial",
+      tapName: "TestimonialList",
       darkImg: require("../../styles/img/darkPeople.png"),
       whiteImg: require("../../styles/img/whitePeople.png"),
-      tapLink: "/testimonial",
+      tapLink: "/testimoniallist",
     },
   ];
 

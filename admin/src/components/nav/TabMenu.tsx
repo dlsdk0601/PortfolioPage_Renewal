@@ -17,15 +17,21 @@ export default function TabMenu(props: {
   return (
     <S.TabMenuWrapper
       onClick={() => navigate(props.tapLink)}
-      isActive={pathname === props.tapLink}
+      isActive={pathname.indexOf(props.tapName.toLowerCase()) !== -1}
     >
       <S.MenuImageBox>
         <S.MenuImage
-          src={pathname === props.tapLink ? props.darkImg : props.whiteImg}
+          src={
+            pathname.indexOf(props.tapName.toLowerCase()) !== -1
+              ? props.darkImg
+              : props.whiteImg
+          }
           alt="메뉴사진"
         />
       </S.MenuImageBox>
-      <S.MenuTitle isActive={pathname === props.tapLink}>
+      <S.MenuTitle
+        isActive={pathname.indexOf(props.tapName.toLowerCase()) !== -1}
+      >
         {props.tapName}
       </S.MenuTitle>
     </S.TabMenuWrapper>
