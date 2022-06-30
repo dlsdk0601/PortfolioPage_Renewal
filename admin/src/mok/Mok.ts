@@ -19,6 +19,15 @@ export type IPortfolioList = {
   capture: string;
 };
 
+export type ITestimonialList = {
+  num: number;
+  tes_name: string;
+  tes_text: string;
+  tex_real: string;
+  tes_oneline: string;
+  photo: string;
+};
+
 export const fakePortfolioList: IPortfolioList[] = [
   {
     num: 1,
@@ -103,5 +112,53 @@ export const fakePortfolioList: IPortfolioList[] = [
     img2: require("../styles/img/dummyImg.png"),
     img3: require("../styles/img/dummyImg.png"),
     capture: require("../styles/img/pages3.png"),
+  },
+];
+
+export const fakeTestimonialList: ITestimonialList[] = [
+  {
+    num: 2,
+    tes_name: "이지현",
+    tes_text:
+      "선생님께서 내주시는 테스트는 엄청난 집중력으로 빠른시간에 해결하고, 어떠한 코드도 끝까지 파고들어 척척 해결하는 우리반 능력자 인아님!! 코드에 대한 열정도 남다르시고, 욕심도 많으셔서 공부도 많이 바쁘고, 힘드실텐데 질문도 항상 친절하게 잘 받아주시고, 막히는것은 끝까지 같이 해결해주시는게 항상 감사했습니다. 어느 회사의 어느곳을 가던지 이렇게 열정있으면서 실력도 있는 사람은 찾기 힘들 것 같아요! ",
+    tex_real: "학원 동기",
+    tes_oneline: '"503호 능력자"',
+    photo: require("../styles/img/testimonial.jpg"),
+  },
+  {
+    num: 3,
+    tes_name: "유동우",
+    tes_text:
+      "반장으로써 수업 시작부터 끝까지 누구보다 흐트럼 없이 집중하는 모습이 인상적이었고 반 친구들이 코딩할 때 어려움이 있으면 먼저 나서서 도와주고 문제를 해결해 줬습니다. 스터디에서도 좋은 영향력을 주었으며 회사에 들어가서도 팀 분위기전환과  선후배 동기들과 어려움없이 잘 지낼것이라 생각합니다. 빠르게 배우고 성장하는 신입을 원하신다면 정인아 개발자를 적극 추천드립니다!!!",
+    tex_real: "학원 동기",
+    tes_oneline: '"타고난 코딩감각을 가진 준비된 개발자!"',
+    photo: require("../styles/img/testimonial.jpg"),
+  },
+  {
+    num: 4,
+    tes_name: "김운성",
+    tes_text:
+      "인아는 개발자라는 직업이 참 잘 어울리는 친구입니다. 대부분 다른일을 하다 취직을 위해 들어온 사람들이라 코딩 하면서 즐거운 사람은 거의 없었는데 인아는 달랐습니다. 스스로 문제를 해결하려 고민하고 코드치는게 즐거워 새벽까지 하는걸 보면 이런 사람이 개발자를 하는거구나 하는 생각이 들었습니다. 그런 열정때문인지 5개월이 지난 지금 부쩍 성장해있는게 느껴지고 일년뒤에는 또 어떤 언어와 싸우고 있을지 궁금해지는 친구입니다.",
+    tex_real: "학원 동기",
+    tes_oneline: '"코딩과 베프"',
+    photo: require("../styles/img/testimonial.jpg"),
+  },
+  {
+    num: 6,
+    tes_name: "차민규",
+    tes_text:
+      "인아는 UIUX디자인 웹퍼블리셔 / 프론트엔드 개발자 양성과정 이수 기간동안 항상 긍정적인 사고방식으로 학업에 열중하는 우수한 교육생입니다. 새로운 학문을 배우는 과정에서 항상 연구 노력하는 자세를 보였으며, 프로젝트 기간 중에는 개발 프로그램에 관련된 모든 과정을 주도적으로 관리 및 개발하여 프로그램의 완성도를 높이는데 기여 했습니다.\r\n프로젝트 결과물이 전문가에 비교하여 미숙한 점도 있겠으나 기획, 설계, 구현까지 일련의 작업과정을 습득하였으며, 프로젝트 진행 중 본인의 책임을 완수하기 위하여 늦은 시간까지 노력하는 모습을 보이는 성실한 교육생입니다.\r\n",
+    tex_real: "그린컴퓨터 아카데미 강사",
+    tes_oneline: '"개발자 꿈나무"',
+    photo: require("../styles/img/testimonial.jpg"),
+  },
+  {
+    num: 7,
+    tes_name: "김교현",
+    tes_text:
+      "그린컴퓨터 학원에서 코딩을 제일 잘하는 사람이 누구냐 물으면 항상 인아님 이였습니다. 학원에서 반장역할을 수행하기도 하였고 책임감이 강합니다. 학원에서 실력이 탑인 만큼 인아님께 질문하는 수강생분들도 많았습니다. 인아님은 물어보는 이에게 정성껏 알려주고 피드백 해주었습니다. 물론 저 또한 인아님께 정말 많은 도움을 받았습니다. 실력만큼은 인증된 수재입니다. ",
+    tex_real: "학원 동기",
+    tes_oneline: '"성실의 대가 노력의 열매"',
+    photo: require("../styles/img/testimonial.jpg"),
   },
 ];

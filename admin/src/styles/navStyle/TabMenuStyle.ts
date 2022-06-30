@@ -10,7 +10,7 @@ export const TabMenuWrapper = styled.div<{ isActive: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => (props.isActive ? "#e5e5e7" : "none")};
+  background-color: ${(props) => (props.isActive ? "white" : "none")};
   &:hover {
     background-color: ${(props) =>
       props.isActive ? "none" : props.theme.SubColor};

@@ -3,15 +3,18 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
+import { useRecoilState } from "recoil";
+import { loginState } from "./state/atom";
+
 // components
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import MainPage from "./pages/MainPage";
 import NavBar from "./components/nav/NavBar";
-import { useRecoilState } from "recoil";
-import { loginState } from "./state/atom";
 import DashboardDetailPage from "./pages/DashboardDetailPage";
 import UploadPage from "./pages/UploadPage";
+import TestimonialListPage from "./pages/TestimonialListPage";
+import TestimonialDetailPage from "./pages/TestimonialDetailPage";
 
 // img
 
@@ -31,7 +34,7 @@ function App() {
   return (
     <Wrapper>
       <BrowserRouter>
-        {!isLogged && <NavBar />}
+        {isLogged && <NavBar />}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />
@@ -40,7 +43,12 @@ function App() {
             path="/portfoliolist/:selectedId"
             element={<DashboardDetailPage />}
           />
-          <Route path="upload/*" element={<UploadPage />} />
+          <Route path="/upload/*" element={<UploadPage />} />
+          <Route path="/testimoniallist" element={<TestimonialListPage />} />
+          <Route
+            path="/testimoniallist/:selectedId"
+            element={<TestimonialDetailPage />}
+          />
         </Routes>
       </BrowserRouter>
     </Wrapper>

@@ -31,10 +31,6 @@ export default function RightContents() {
   // push
   const navigate = useNavigate();
 
-  // env
-  const REALUSERID = process.env.REACT_APP_userID;
-  const REALUSERPASSWORD = process.env.REACT_APP_userPW;
-
   // recoil
   const setIsLogged = useSetRecoilState(loginState);
 

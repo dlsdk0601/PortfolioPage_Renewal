@@ -44,7 +44,7 @@ export default function PortfolioList() {
           />
         ))}
       {!portfolioListisLoading && portfolioList.length === 0 && (
-        <S.NoSelectText>조회된 데이터 없습니다</S.NoSelectText>
+        <S.NoSelectText>조회된 데이터가 없습니다</S.NoSelectText>
       )}
     </S.PortfolioListBox>
   );
