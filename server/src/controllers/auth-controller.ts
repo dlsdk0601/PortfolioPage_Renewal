@@ -4,6 +4,7 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import config from "../config";
 import jwt from "jsonwebtoken";
+import { resJsonType } from "../utils/resType";
 
 // register
 const register = (req: Request, res: Response) => {
@@ -14,12 +15,13 @@ const register = (req: Request, res: Response) => {
   // user는 우리가 만든 User의 인스턴스가 되는거임.
   // 때문에 서버통신에서 각 해당 값들 잘 넘겨줘야함.
   user.save((err: Error | null, userInfo: IUserSchema) => {
-    if (err) return res.json({ result: false, err });
+    if (err) {
+      const resJson = resJsonType<null>(null, 600, "DB에 유저 저장 실패", err);
+      return res.json(resJson);
+    }
 
-    return res.status(200).json({
-      result: true,
-      userInfo,
-    });
+    const resJson = resJsonType<IUserSchema>(userInfo, 200);
+    return res.json(resJson);
   });
 };
 
@@ -33,22 +35,16 @@ const login = async (req: Request, res: Response) => {
 
   // 유저 정보가 없다면
   if (!userInfo) {
-    return res.json({
-      result: true,
-      message: "아이디가 존재하지 않습니다.",
-      userInfo: null,
-    });
+    const resJson = resJsonType<null>(null, 601, "아이디가 존재하지 않습니다.");
+    return res.json(resJson);
   }
 
   // 아이디가 db에 있으면 비밀번호 확인
   const check = await bcrypt.compare(password, userInfo.password);
 
   if (!check) {
-    return res.json({
-      result: true,
-      message: "비밀번호가 틀렸습니다.",
-      userInfo: null,
-    });
+    const resJson = resJsonType<null>(null, 602, "비밀번호가 틀렸습니다.");
+    return res.json(resJson);
   }
 
   // 비밀번호 맞으면 토근 생성
@@ -60,18 +56,12 @@ const login = async (req: Request, res: Response) => {
   const userInfoSave: IUserSchema | null = await userInfo.save();
 
   if (!userInfoSave) {
-    return res.json({
-      result: true,
-      message: "토큰 저장 실패",
-      userInfo: null,
-    });
+    const resJson = resJsonType<null>(null, 603, "토큰 저장 실패");
+    return res.json(resJson);
   }
 
-  return res.json({
-    result: true,
-    message: "로그인 성공",
-    userInfo,
-  });
+  const resJson = resJsonType<IUserSchema>(userInfo, 200);
+  return res.json(resJson);
 };
 
 export default {

@@ -1,32 +1,4 @@
-export type IPortfolioList = {
-  num: number;
-  name: string;
-  sitename: string;
-  subs: string;
-  part: string;
-  mission: string;
-  exp: string;
-  skill: string;
-  func: string;
-  git: string;
-  sitepage: string;
-  howlong: string;
-  responsive: string;
-  color: string;
-  img1: string;
-  img2: string;
-  img3: string;
-  capture: string;
-};
-
-export type ITestimonialList = {
-  num: number;
-  tes_name: string;
-  tes_text: string;
-  tex_real: string;
-  tes_oneline: string;
-  photo: string;
-};
+import { IPortfolioList, ITestimonialList } from "../api/schema";
 
 export const fakePortfolioList: IPortfolioList[] = [
   {
