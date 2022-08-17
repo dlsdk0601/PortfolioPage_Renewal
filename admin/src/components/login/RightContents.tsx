@@ -1,5 +1,5 @@
 // lib
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
@@ -12,6 +12,7 @@ import { Axios } from "../../api/Axios";
 import ServerFailModal from "../common/ServerFailModal";
 import api from "../../api/api";
 import { isBlank, isResSuccess } from "../../ex/ex";
+import useClickOutside from "../../utils/useClickOutside";
 
 export default function RightContents() {
   // push
@@ -25,26 +26,29 @@ export default function RightContents() {
   const [userPw, setUserPw] = useState<string>("");
 
   // error
-  const [serverError, setServerError] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<boolean>(false);
   const [errorText, setErrorText] = useState<string>("");
+
+  const serverFailRef = useRef(null);
+
+  const { isOpen, setIsOpen } = useClickOutside(serverFailRef);
 
   // error Text
   const ErrorTextHanle = useCallback((code: number): void => {
     if (code === 601) {
-      setServerError((prev) => true);
+      setIsOpen((prev) => true);
       setErrorText("아이디가 잘못됐습니다.");
       return;
     }
 
     if (code === 602) {
-      setServerError((prev) => true);
+      setIsOpen((prev) => true);
       setErrorText("비밀번호가 잘못됐습니다.");
       return;
     }
 
     if (code === 603) {
-      setServerError((prev) => true);
+      setIsOpen((prev) => true);
       setErrorText("토큰 저장 실패했습니다.");
       return;
     }
@@ -79,9 +83,7 @@ export default function RightContents() {
       password: userPw,
     };
 
-    // const loginData: ILoginData = await Axios.post("/login", loginRequset);
     const loginData = await api.login(loginRequset);
-    console.log(loginData);
 
     if (!isResSuccess(loginData)) {
       ErrorTextHanle(loginData.code);
@@ -107,11 +109,18 @@ export default function RightContents() {
     }
   };
 
+  const onClickOkButton = () => {
+    setIsOpen((prev) => false);
+  };
+
   return (
     <S.Wrapper>
-      {serverError &&
+      {isOpen &&
         ReactDom.createPortal(
-          <ServerFailModal />,
+          <ServerFailModal
+            title={errorText}
+            onClickOkButton={() => onClickOkButton()}
+          />,
           // @ts-ignore
           document.getElementById("modal-root")
         )}

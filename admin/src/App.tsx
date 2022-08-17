@@ -24,7 +24,7 @@ function App() {
   const [isLogged, setIsLogged] = useRecoilState<boolean>(loginState);
 
   useEffect(() => {
-    const TOKEN = sessionStorage.getItem("Access_Token");
+    const TOKEN = sessionStorage.getItem("accessToken");
 
     if (TOKEN) {
       setIsLogged((prev): boolean => true);

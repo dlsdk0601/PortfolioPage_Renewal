@@ -12,7 +12,7 @@ export function preventDefault<T extends BaseSyntheticEvent>(
 }
 
 export const isBlank = (value: any): value is null | undefined => {
-  if (value.trim() === "") {
+  if (typeof value === "string" && value.trim() === "") {
     return true;
   }
 
