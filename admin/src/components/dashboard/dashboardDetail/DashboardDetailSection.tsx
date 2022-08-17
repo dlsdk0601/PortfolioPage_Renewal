@@ -1,6 +1,7 @@
 // components
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailSectionStyle";
-import { fakePortfolioList, IPortfolioList } from "../../../mok/Mok";
+import { fakePortfolioList } from "../../../mok/Mok";
+import { IPortfolioList } from "../../../api/schema";
 import DashboardDetailMaking from "./DashboardDetailMaking";
 import DashboardDetailOverView from "./DashboardDetailOverView";
 import DashboardDetailFocus from "./DashboardDetailFocus";

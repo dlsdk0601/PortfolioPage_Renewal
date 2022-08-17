@@ -1,5 +1,6 @@
 // lib
 import React, { useCallback, useState } from "react";
+import ReactDom from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
@@ -8,8 +9,7 @@ import { loginState } from "../../state/atom";
 import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
 import { Axios } from "../../api/Axios";
-
-// img
+import ServerFailModal from "../common/ServerFailModal";
 
 type IuserInfo = {
   name?: string;
@@ -72,7 +72,7 @@ export default function RightContents() {
     if (userInfo) {
       const { token } = userInfo;
       setIsLogged((prev): boolean => true);
-      sessionStorage.setItem("JWTTOKEN", token);
+      sessionStorage.setItem("accessToken", token);
       navigate("/main");
     } else {
       setLoginError((prev): boolean => true);
@@ -92,6 +92,11 @@ export default function RightContents() {
 
   return (
     <S.Wrapper>
+      {ReactDom.createPortal(
+        <ServerFailModal />,
+        // @ts-ignore
+        document.getElementById("modal-root")
+      )}
       <S.RightArticle>
         <S.RightTitle>SignIn</S.RightTitle>
         <S.LoginForm>

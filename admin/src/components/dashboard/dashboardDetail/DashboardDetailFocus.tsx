@@ -3,7 +3,7 @@ import React from "react";
 
 // component
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailFocusStyle";
-import { IPortfolioList } from "../../../mok/Mok";
+import { IPortfolioList } from "../../../api/schema";
 
 export default function DashboardDetailFocus(props: {
   selectedPortfolio: IPortfolioList;

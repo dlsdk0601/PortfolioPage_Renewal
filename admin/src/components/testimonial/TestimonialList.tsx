@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 
 // component
-import { fakeTestimonialList, ITestimonialList } from "../../mok/Mok";
+import { fakeTestimonialList } from "../../mok/Mok";
+import { ITestimonialList } from "../../api/schema";
 import * as S from "../../styles/testomonial/TestimonialListStyle";
 import TestimonialListSkeleton from "../skeleton/testimonial/TestimonialListSkeleton";
 import TestimonialListItem from "./TestimonialListItem";

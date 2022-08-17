@@ -2,7 +2,7 @@
 import React from "react";
 
 // component
-import { IPortfolioList } from "../../../mok/Mok";
+import { IPortfolioList } from "../../../api/schema";
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailThumnailStye";
 
 export default function DashboardDetailThumnail(props: {

@@ -1,7 +1,7 @@
 // lib
 import React, { useEffect, useState } from "react";
-import { fakePortfolioList, IPortfolioList } from "../../mok/Mok";
-
+import { fakePortfolioList } from "../../mok/Mok";
+import { IPortfolioList } from "../../api/schema";
 // components
 import * as S from "../../styles/dashboardStyle/PortfolioListStyle";
 import PortfolioListItemSkeleton from "../skeleton/dashboard/PortfolioListItemSkeleton";

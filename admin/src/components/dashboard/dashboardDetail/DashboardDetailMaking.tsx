@@ -1,6 +1,6 @@
 // components
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailMakingStyle";
-import { IPortfolioList } from "../../../mok/Mok";
+import { IPortfolioList } from "../../../api/schema";
 
 // lib
 

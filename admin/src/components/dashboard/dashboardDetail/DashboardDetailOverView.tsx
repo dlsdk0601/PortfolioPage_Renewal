@@ -1,5 +1,5 @@
 import React from "react";
-import { IPortfolioList } from "../../../mok/Mok";
+import { IPortfolioList } from "../../../api/schema";
 import * as S from "../../../styles/dashboardStyle/dashboardDetailStyle/DashboardDetailOverView";
 
 export default function DashboardDetailOverView(props: {

@@ -3,6 +3,6 @@ import { authRouter } from "./auth/auth";
 
 const api = express.Router();
 
-api.use("v1", authRouter);
+api.use("/v1", authRouter);
 
 export default api;

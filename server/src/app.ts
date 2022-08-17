@@ -27,6 +27,6 @@ app.use(bodyParser.json());
 mongodbLoader();
 
 // route
-app.use("api", api);
+app.use("/api", api);
 
 app.listen(config.PORT, () => console.log(`✅ server Connection Successful`));
