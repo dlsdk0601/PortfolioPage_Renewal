@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-import { loginState } from "./state/atom";
+import { loginFetch, loginState } from "./state/atom";
 
 // components
 import LoginPage from "./pages/LoginPage";
@@ -15,6 +15,7 @@ import DashboardDetailPage from "./pages/DashboardDetailPage";
 import UploadPage from "./pages/UploadPage";
 import TestimonialListPage from "./pages/TestimonialListPage";
 import TestimonialDetailPage from "./pages/TestimonialDetailPage";
+import { isBlank } from "./ex/ex";
 
 // img
 
@@ -22,13 +23,14 @@ import TestimonialDetailPage from "./pages/TestimonialDetailPage";
 
 function App() {
   const [isLogged, setIsLogged] = useRecoilState<boolean>(loginState);
+  // const [ get, set ] = useRecoilState(loginFetch);
 
   useEffect(() => {
     const TOKEN = sessionStorage.getItem("accessToken");
-
-    if (TOKEN) {
-      setIsLogged((prev): boolean => true);
+    if (!isBlank(TOKEN)) {
+      setIsLogged((prev) => true);
     }
+    // set(TOKEN);
   }, []);
 
   return (
