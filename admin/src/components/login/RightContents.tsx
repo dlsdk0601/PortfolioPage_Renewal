@@ -35,13 +35,13 @@ export default function RightContents() {
   const setIsLogged = useSetRecoilState(loginState);
 
   // id and pw
-  const [userId, setUserId] = useState("");
-  const [userPw, setUserPw] = useState("");
+  const [userId, setUserId] = useState<string>("");
+  const [userPw, setUserPw] = useState<string>("");
 
   // error
-  const [userIdError, setUserIdError] = useState(false);
-  const [userPwError, setUserPwError] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [userIdError, setUserIdError] = useState<boolean>(false);
+  const [userPwError, setUserPwError] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<boolean>(false);
 
   // loginHandle
   const loginSubmit = useCallback(async () => {
