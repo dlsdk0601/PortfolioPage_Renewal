@@ -6,7 +6,7 @@ export interface ResType<T> {
   code: number;
   result: boolean;
   msg: string | null;
-  data: T;
+  data: T | null;
 }
 
 export interface IPortfolioList {
@@ -37,4 +37,18 @@ export interface ITestimonialList {
   tex_real: string;
   tes_oneline: string;
   photo: string;
+}
+export interface ILoginReq {
+  id: string;
+  password: string;
+}
+
+export interface ILoginRes {
+  name?: string;
+  id?: string;
+  email?: string;
+  password?: string;
+  role?: number;
+  token: string;
+  tokenExp?: number;
 }

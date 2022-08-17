@@ -10,22 +10,8 @@ import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
 import { Axios } from "../../api/Axios";
 import ServerFailModal from "../common/ServerFailModal";
-
-type IuserInfo = {
-  name?: string;
-  id?: string;
-  email?: string;
-  password?: string;
-  role?: number;
-  token: string;
-  tokenExp?: number;
-};
-
-type ILoginData = {
-  message: string;
-  result: boolean;
-  userInfo: IuserInfo | null;
-};
+import api from "../../api/api";
+import { isBlank, isResSuccess } from "../../ex/ex";
 
 export default function RightContents() {
   // push
@@ -60,17 +46,16 @@ export default function RightContents() {
       id: userId,
       password: userPw,
     };
-    const loginData: ILoginData = await Axios.post("/login", loginRequset);
+    // const loginData: ILoginData = await Axios.post("/login", loginRequset);
+    const loginData = await api.login(loginRequset);
 
-    const { userInfo, result } = loginData;
-
-    if (!result) {
+    if (!isResSuccess(loginData)) {
       alert("통신 실패");
       return;
     }
 
-    if (userInfo) {
-      const { token } = userInfo;
+    if (!isBlank(loginData.data)) {
+      const { token } = loginData.data;
       setIsLogged((prev): boolean => true);
       sessionStorage.setItem("accessToken", token);
       navigate("/main");

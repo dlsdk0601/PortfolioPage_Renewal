@@ -18,8 +18,8 @@ export const Modal = styled.div`
   width: 500px;
   height: 300px;
   border-radius: 10px;
-  border: 1px solid ${(props) => props.theme.SubColor};
-  background: #fff;
+  border: 1px solid ${(props) => props.theme.SubTextColor};
+  background: ${(props) => props.theme.MainColor};
   overflow: hidden;
   z-index: 2;
 `;
@@ -43,7 +43,7 @@ export const Title = styled.p`
   font-size: 20px;
   line-height: 1;
   text-align: center;
-  color: #000000;
+  color: ${(props) => props.theme.SubTextColor};
 `;
 
 export const ButtonBox = styled.div`
@@ -55,9 +55,11 @@ export const Button = styled.button`
   font-size: 16px;
   line-height: 1;
   padding: 10px 0;
-  border: 1px solid ${(props) => props.theme.MainColor};
+  border: 1px solid ${(props) => props.theme.SubTextColor};
   border-radius: 10px;
   background: none;
   width: 20%;
   margin: 0 auto;
+  color: ${(props) => props.theme.SubTextColor};
+  cursor: pointer;
 `;
