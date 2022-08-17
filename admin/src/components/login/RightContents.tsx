@@ -25,20 +25,52 @@ export default function RightContents() {
   const [userPw, setUserPw] = useState<string>("");
 
   // error
-  const [userIdError, setUserIdError] = useState<boolean>(false);
-  const [userPwError, setUserPwError] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<boolean>(false);
+  const [errorText, setErrorText] = useState<string>("");
+
+  // error Text
+  const ErrorTextHanle = useCallback((code: number): void => {
+    if (code === 601) {
+      setServerError((prev) => true);
+      setErrorText("아이디가 잘못됐습니다.");
+      return;
+    }
+
+    if (code === 602) {
+      setServerError((prev) => true);
+      setErrorText("비밀번호가 잘못됐습니다.");
+      return;
+    }
+
+    if (code === 603) {
+      setServerError((prev) => true);
+      setErrorText("토큰 저장 실패했습니다.");
+      return;
+    }
+
+    if (code === 504) {
+      setLoginError((prev) => true);
+      setErrorText("아이디를 입력해주세요.");
+      return;
+    }
+
+    if (code === 505) {
+      setLoginError((prev) => true);
+      setErrorText("비밀번호 형식이 잘못됐습니다.");
+      return;
+    }
+  }, []);
 
   // loginHandle
   const loginSubmit = useCallback(async () => {
     if (userId === "") {
-      setUserIdError((prev): boolean => true);
+      ErrorTextHanle(504);
       return;
     }
 
     if (!passwordValidation.test(userPw)) {
-      setUserIdError((prev): boolean => false);
-      setUserPwError((prev): boolean => true);
+      ErrorTextHanle(505);
       return;
     }
 
@@ -46,11 +78,13 @@ export default function RightContents() {
       id: userId,
       password: userPw,
     };
+
     // const loginData: ILoginData = await Axios.post("/login", loginRequset);
     const loginData = await api.login(loginRequset);
+    console.log(loginData);
 
     if (!isResSuccess(loginData)) {
-      alert("통신 실패");
+      ErrorTextHanle(loginData.code);
       return;
     }
 
@@ -61,8 +95,6 @@ export default function RightContents() {
       navigate("/main");
     } else {
       setLoginError((prev): boolean => true);
-      setUserIdError((prev): boolean => false);
-      setUserPwError((prev): boolean => false);
     }
   }, [userId, userPw]);
 
@@ -77,11 +109,12 @@ export default function RightContents() {
 
   return (
     <S.Wrapper>
-      {ReactDom.createPortal(
-        <ServerFailModal />,
-        // @ts-ignore
-        document.getElementById("modal-root")
-      )}
+      {serverError &&
+        ReactDom.createPortal(
+          <ServerFailModal />,
+          // @ts-ignore
+          document.getElementById("modal-root")
+        )}
       <S.RightArticle>
         <S.RightTitle>SignIn</S.RightTitle>
         <S.LoginForm>
@@ -102,11 +135,7 @@ export default function RightContents() {
             name="adminPw"
           />
         </S.LoginForm>
-        <S.ErrorText>{userIdError && "아이디를 입력해주세요."}</S.ErrorText>
-        <S.ErrorText>
-          {userPwError && "비밀번호형식이 잘못되었습니다."}
-        </S.ErrorText>
-        <S.ErrorText>{loginError && "로그인에 실패하였습니다."}</S.ErrorText>
+        <S.ErrorText>{loginError && errorText}</S.ErrorText>
         <S.ButtonBox>
           <S.LoginButton onClick={loginSubmit} type="submit">
             LOGIN
