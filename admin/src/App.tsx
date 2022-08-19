@@ -26,7 +26,7 @@ function App() {
       selector({ name, id, token, role });
     }
   }, [isUserData.state]);
-  console.log(get.token);
+
   return (
     <Wrapper>
       <BrowserRouter>
