@@ -25,6 +25,7 @@ const register = (req: Request, res: Response) => {
   });
 };
 
+// login
 const login = async (req: Request, res: Response) => {
   const {
     body: { id, password },
@@ -64,7 +65,30 @@ const login = async (req: Request, res: Response) => {
   return res.json(resJson);
 };
 
+// userData
+const userData = async (req: Request, res: Response) => {
+  const { headers } = req;
+
+  const token = headers?.authorization;
+
+  if (!token) {
+    const resJson = resJsonType<null>(null, 605, "토큰 정보가 잘못돼었습니다.");
+    return res.json(resJson);
+  }
+
+  const userData: IUserSchema | null = await User.findOne({ token });
+
+  if (!userData) {
+    const resJson = resJsonType<null>(null, 606, "해당 유저 정보가 없습니다.");
+    return res.json(resJson);
+  }
+
+  const resJson = resJsonType<IUserSchema>(userData, 200);
+  return res.json(resJson);
+};
+
 export default {
   register,
   login,
+  userData,
 };

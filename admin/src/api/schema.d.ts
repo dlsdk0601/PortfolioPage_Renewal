@@ -52,3 +52,9 @@ export interface ILoginRes {
   token: string;
   tokenExp?: number;
 }
+
+export interface IUserData {
+  id: string;
+  name: string;
+  role: string;
+}

@@ -16,6 +16,7 @@ import UploadPage from "./pages/UploadPage";
 import TestimonialListPage from "./pages/TestimonialListPage";
 import TestimonialDetailPage from "./pages/TestimonialDetailPage";
 import { isBlank } from "./ex/ex";
+import api from "./api/api";
 
 // img
 
@@ -25,11 +26,18 @@ function App() {
   const [isLogged, setIsLogged] = useRecoilState<boolean>(loginState);
   // const [ get, set ] = useRecoilState(loginFetch);
 
+  const userData = async () => {
+    const res = await api.userData();
+    console.log("res===");
+    console.log(res);
+  };
+
   useEffect(() => {
     const TOKEN = sessionStorage.getItem("accessToken");
     if (!isBlank(TOKEN)) {
       setIsLogged((prev) => true);
     }
+    userData();
     // set(TOKEN);
   }, []);
 
