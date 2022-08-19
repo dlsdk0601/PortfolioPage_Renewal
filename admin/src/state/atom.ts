@@ -1,5 +1,7 @@
 import { atom, selector } from "recoil";
+import api from "../api/api";
 import { IUserData } from "../api/schema";
+import { isBlank, isResSuccess } from "../ex/ex";
 
 export const loginState = atom<boolean>({
   key: "login",
@@ -11,20 +13,26 @@ export const userData = atom<IUserData>({
   default: {
     id: "",
     name: "",
-    role: "",
+    role: null,
   },
 });
 
-export const loginFetch = selector<boolean>({
+export const userDataFetch = selector<IUserData>({
   key: "loginFetch",
-  get: ({ get }) => {
-    const loginStatus = get(loginState);
-    return loginStatus;
-  },
-  set: ({ set }, accessToken) => {
-    if (!accessToken) {
-      set(loginState, false);
+  get: async ({ get }) => {
+    const res = await api.userData();
+    if (isResSuccess(res) && !isBlank(res.data)) {
+      return res.data;
     }
+
+    return {
+      id: "",
+      name: "",
+      role: null,
+    };
+  },
+  set: ({ set }, newValue) => {
+    set(userData, newValue);
     set(loginState, true);
   },
 });

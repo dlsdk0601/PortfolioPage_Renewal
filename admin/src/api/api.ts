@@ -1,11 +1,11 @@
 import { Axios } from "./Axios";
-import { ILoginReq, ILoginRes, ResType } from "./schema";
+import { ILoginReq, ILoginRes, IUserData, ResType } from "./schema";
 
 const api = {
   login: async (loginData: ILoginReq): Promise<ResType<ILoginRes>> =>
     (await Axios.post("/login", loginData)).data,
 
-  userData: async (): Promise<ResType<ILoginRes>> =>
+  userData: async (): Promise<ResType<IUserData>> =>
     (await Axios.get("/authification")).data,
 };
 

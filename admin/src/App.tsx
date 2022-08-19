@@ -3,8 +3,12 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
-import { useRecoilState } from "recoil";
-import { loginFetch, loginState } from "./state/atom";
+import {
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
+import { loginState, userDataFetch } from "./state/atom";
 
 // components
 import LoginPage from "./pages/LoginPage";
@@ -15,31 +19,18 @@ import DashboardDetailPage from "./pages/DashboardDetailPage";
 import UploadPage from "./pages/UploadPage";
 import TestimonialListPage from "./pages/TestimonialListPage";
 import TestimonialDetailPage from "./pages/TestimonialDetailPage";
-import { isBlank } from "./ex/ex";
-import api from "./api/api";
-
-// img
-
-// type or interfacc
 
 function App() {
-  const [isLogged, setIsLogged] = useRecoilState<boolean>(loginState);
-  // const [ get, set ] = useRecoilState(loginFetch);
-
-  const userData = async () => {
-    const res = await api.userData();
-    console.log("res===");
-    console.log(res);
-  };
+  const isLogged = useRecoilValue(loginState);
+  const isUserData = useRecoilValueLoadable(userDataFetch);
+  const selector = useSetRecoilState(userDataFetch);
 
   useEffect(() => {
-    const TOKEN = sessionStorage.getItem("accessToken");
-    if (!isBlank(TOKEN)) {
-      setIsLogged((prev) => true);
+    if (isUserData.state === "hasValue") {
+      const user = isUserData.contents;
+      selector({ id: user.id, name: user.name, role: user.role });
     }
-    userData();
-    // set(TOKEN);
-  }, []);
+  }, [isUserData.state]);
 
   return (
     <Wrapper>

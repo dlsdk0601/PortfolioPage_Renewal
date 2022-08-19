@@ -56,5 +56,5 @@ export interface ILoginRes {
 export interface IUserData {
   id: string;
   name: string;
-  role: string;
+  role: number | null;
 }
