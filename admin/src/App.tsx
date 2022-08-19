@@ -2,13 +2,8 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-
-import {
-  useRecoilValue,
-  useRecoilValueLoadable,
-  useSetRecoilState,
-} from "recoil";
-import { loginState, userDataFetch } from "./state/atom";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { userDataFetch } from "./state/atom";
 
 // components
 import LoginPage from "./pages/LoginPage";
@@ -21,21 +16,21 @@ import TestimonialListPage from "./pages/TestimonialListPage";
 import TestimonialDetailPage from "./pages/TestimonialDetailPage";
 
 function App() {
-  const isLogged = useRecoilValue(loginState);
   const isUserData = useRecoilValueLoadable(userDataFetch);
-  const selector = useSetRecoilState(userDataFetch);
+  const [get, selector] = useRecoilState(userDataFetch);
 
   useEffect(() => {
     if (isUserData.state === "hasValue") {
-      const user = isUserData.contents;
-      selector({ id: user.id, name: user.name, role: user.role });
+      const { name, id, token, role } = isUserData.contents;
+      console.log(isUserData.contents);
+      selector({ name, id, token, role });
     }
   }, [isUserData.state]);
-
+  console.log(get.token);
   return (
     <Wrapper>
       <BrowserRouter>
-        {isLogged && <NavBar />}
+        {get.token && <NavBar />}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />

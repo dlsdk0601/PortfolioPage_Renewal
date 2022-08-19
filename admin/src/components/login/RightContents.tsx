@@ -5,21 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // components
-import { loginState } from "../../state/atom";
 import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
-import { Axios } from "../../api/Axios";
 import ServerFailModal from "../common/ServerFailModal";
 import api from "../../api/api";
 import { isBlank, isResSuccess } from "../../ex/ex";
 import useClickOutside from "../../utils/useClickOutside";
+import { userData } from "../../state/atom";
 
 export default function RightContents() {
   // push
   const navigate = useNavigate();
 
   // recoil
-  const setIsLogged = useSetRecoilState(loginState);
+  const selector = useSetRecoilState(userData);
 
   // id and pw
   const [userId, setUserId] = useState<string>("");
@@ -91,8 +90,8 @@ export default function RightContents() {
     }
 
     if (!isBlank(loginData.data)) {
-      const { token } = loginData.data;
-      setIsLogged((prev): boolean => true);
+      const { token, name, id, role } = loginData.data;
+      selector({ token, name, id, role });
       sessionStorage.setItem("accessToken", token);
       navigate("/main");
     } else {

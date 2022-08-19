@@ -4,17 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 // components
-import { loginState } from "../../state/atom";
+import { userDataFetch } from "../../state/atom";
 import TapList from "./TapList";
 import * as S from "../../styles/navStyle/NavBarStyle";
 
 export default function NavBar() {
-  const setIsLogged = useSetRecoilState(loginState);
   const navigate = useNavigate();
 
+  const selector = useSetRecoilState(userDataFetch);
+
   const logoutHandle = () => {
-    setIsLogged((prev): boolean => false);
-    sessionStorage.removeItem("Access_Token");
+    selector({ id: "", name: "", role: null, token: null });
+    sessionStorage.removeItem("accessToken");
     navigate("/");
   };
 

@@ -18,7 +18,7 @@ export default function MainSection() {
     <S.MainWrapper>
       <S.MainTitle>Amin Page에 오신걸 환영합니다.</S.MainTitle>
       <S.MainListUl>
-        <S.MainListLi onClick={() => clickListCard("/dashboard")}>
+        <S.MainListLi onClick={() => clickListCard("/portfoliolist")}>
           <S.FigureForList>
             <S.ImgForList
               alt="logo"
@@ -42,7 +42,7 @@ export default function MainSection() {
             <S.ListDescription>포트폴이로 및 추천서 등록</S.ListDescription>
           </S.Description>
         </S.MainListLi>
-        <S.MainListLi onClick={() => clickListCard("/testimonial")}>
+        <S.MainListLi onClick={() => clickListCard("/testimoniallist")}>
           <S.FigureForList>
             <S.ImgForList
               alt="logo"

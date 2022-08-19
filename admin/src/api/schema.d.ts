@@ -44,11 +44,11 @@ export interface ILoginReq {
 }
 
 export interface ILoginRes {
-  name?: string;
-  id?: string;
+  name: string;
+  id: string;
   email?: string;
   password?: string;
-  role?: number;
+  role: number;
   token: string;
   tokenExp?: number;
 }
@@ -57,4 +57,5 @@ export interface IUserData {
   id: string;
   name: string;
   role: number | null;
+  token: string | null;
 }
