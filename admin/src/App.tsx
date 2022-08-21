@@ -2,8 +2,13 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
-import { userDataFetch } from "./state/atom";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
+import { userData, userDataFetch } from "./state/atom";
 
 // components
 import LoginPage from "./pages/LoginPage";
@@ -17,7 +22,8 @@ import TestimonialDetailPage from "./pages/TestimonialDetailPage";
 
 function App() {
   const isUserData = useRecoilValueLoadable(userDataFetch);
-  const [get, selector] = useRecoilState(userDataFetch);
+  const selector = useSetRecoilState(userDataFetch);
+  const user = useRecoilValue(userData);
 
   useEffect(() => {
     if (isUserData.state === "hasValue") {
@@ -30,7 +36,7 @@ function App() {
   return (
     <Wrapper>
       <BrowserRouter>
-        {get.token && <NavBar />}
+        {user.token && <NavBar />}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />

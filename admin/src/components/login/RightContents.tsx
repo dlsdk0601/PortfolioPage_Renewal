@@ -2,78 +2,44 @@
 import React, { useCallback, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 // components
 import { passwordValidation } from "../../utils/Validation";
 import * as S from "../../styles/loginStyle/LoginRightContentStyle";
 import ServerFailModal from "../common/ServerFailModal";
 import api from "../../api/api";
-import { isBlank, isResSuccess } from "../../ex/ex";
+import { errorTextHandle, isBlank, isResSuccess } from "../../ex/ex";
 import useClickOutside from "../../utils/useClickOutside";
-import { userData } from "../../state/atom";
+import { userDataFetch } from "../../state/atom";
 
 export default function RightContents() {
   // push
   const navigate = useNavigate();
 
   // recoil
-  const selector = useSetRecoilState(userData);
+  const selector = useSetRecoilState(userDataFetch);
 
   // id and pw
   const [userId, setUserId] = useState<string>("");
   const [userPw, setUserPw] = useState<string>("");
 
   // error
-  const [loginError, setLoginError] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>("");
+  const [errorCode, setErrorCode] = useState<number | null>(null);
 
   const serverFailRef = useRef(null);
 
   const { isOpen, setIsOpen } = useClickOutside(serverFailRef);
 
-  // error Text
-  const ErrorTextHanle = useCallback((code: number): void => {
-    if (code === 601) {
-      setIsOpen((prev) => true);
-      setErrorText("아이디가 잘못됐습니다.");
-      return;
-    }
-
-    if (code === 602) {
-      setIsOpen((prev) => true);
-      setErrorText("비밀번호가 잘못됐습니다.");
-      return;
-    }
-
-    if (code === 603) {
-      setIsOpen((prev) => true);
-      setErrorText("토큰 저장 실패했습니다.");
-      return;
-    }
-
-    if (code === 504) {
-      setLoginError((prev) => true);
-      setErrorText("아이디를 입력해주세요.");
-      return;
-    }
-
-    if (code === 505) {
-      setLoginError((prev) => true);
-      setErrorText("비밀번호 형식이 잘못됐습니다.");
-      return;
-    }
-  }, []);
-
   // loginHandle
   const loginSubmit = useCallback(async () => {
     if (userId === "") {
-      ErrorTextHanle(504);
+      setErrorCode(504);
       return;
     }
 
     if (!passwordValidation.test(userPw)) {
-      ErrorTextHanle(505);
+      setErrorCode(505);
       return;
     }
 
@@ -85,7 +51,7 @@ export default function RightContents() {
     const loginData = await api.login(loginRequset);
 
     if (!isResSuccess(loginData)) {
-      ErrorTextHanle(loginData.code);
+      errorTextHandle(loginData.code);
       return;
     }
 
@@ -95,7 +61,7 @@ export default function RightContents() {
       sessionStorage.setItem("accessToken", token);
       navigate("/main");
     } else {
-      setLoginError((prev): boolean => true);
+      setErrorCode(1000);
     }
   }, [userId, userPw]);
 
@@ -108,17 +74,14 @@ export default function RightContents() {
     }
   };
 
-  const onClickOkButton = () => {
-    setIsOpen((prev) => false);
-  };
-
   return (
     <S.Wrapper>
       {isOpen &&
+        errorCode &&
         ReactDom.createPortal(
           <ServerFailModal
-            title={errorText}
-            onClickOkButton={() => onClickOkButton()}
+            title={errorTextHandle(errorCode)}
+            onClickOkButton={() => setIsOpen((prev) => false)}
           />,
           // @ts-ignore
           document.getElementById("modal-root")
@@ -143,7 +106,7 @@ export default function RightContents() {
             name="adminPw"
           />
         </S.LoginForm>
-        <S.ErrorText>{loginError && errorText}</S.ErrorText>
+        <S.ErrorText>{errorCode && errorTextHandle()}</S.ErrorText>
         <S.ButtonBox>
           <S.LoginButton onClick={loginSubmit} type="submit">
             LOGIN

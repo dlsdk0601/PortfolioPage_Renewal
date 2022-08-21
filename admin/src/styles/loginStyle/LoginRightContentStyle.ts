@@ -38,8 +38,8 @@ export const InputTag = styled.input`
   border-bottom: 1px solid #b3b3b3;
 
   &:focus {
-    outline: none;
     background-color: none;
+    outline: 1px solid #b3b3b3;
   }
 `;
 
