@@ -58,6 +58,7 @@ userSchema.pre<IUserSchema>("save", async function (next) {
 
   // 암호화된 비번 생성
   const hashedPW = await bcrypt.hash(password, salt);
+
   // 유저 인스턴스에 암호화된 비밀번호 대입
   user.password = hashedPW;
 
