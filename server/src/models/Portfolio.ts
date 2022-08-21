@@ -30,8 +30,6 @@ const portfolioSchema = new db.Schema({
   detail: { type: String },
 });
 
-portfolioSchema.pre<IPortfolioSchema>("save", async function (next) {});
-
 const Portfolio = db.model<IPortfolioSchema>("Portfolio", portfolioSchema);
 
 export default Portfolio;

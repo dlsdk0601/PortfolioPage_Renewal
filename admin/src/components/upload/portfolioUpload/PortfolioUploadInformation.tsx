@@ -8,8 +8,6 @@ export default function PortfolioUploadInformation() {
       <S.InformationTitle>Information</S.InformationTitle>
       <S.InformationInputName>포트폴리오 이름</S.InformationInputName>
       <S.InformationInput type="text" />
-      <S.InformationInputName>사이트 이름</S.InformationInputName>
-      <S.InformationInput type="text" />
       <S.InformationInputName>한줄 설명</S.InformationInputName>
       <S.InformationInput type="text" />
       <S.InformationInputName>참여도</S.InformationInputName>

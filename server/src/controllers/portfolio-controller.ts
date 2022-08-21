@@ -1,4 +1,6 @@
-const createPortfolio = () => {};
+const createPortfolio = (req: Request, res: Response) => {
+  return;
+};
 const updatePortfolio = () => {};
 const deletePortfolio = () => {};
 const selectPortfolio = () => {};

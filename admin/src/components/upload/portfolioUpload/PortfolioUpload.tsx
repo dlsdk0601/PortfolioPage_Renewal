@@ -6,7 +6,6 @@ import * as S from "../../../styles/upload/portfolio/PortfolioUploadStyle";
 import PortfolioUploadButton from "./PortfolioUploadButton";
 import PortfolioUploadInformation from "./PortfolioUploadInformation";
 import PortfolioUploadPhoto from "./PortfolioUploadPhoto";
-import PortfolioUploadPlan from "./PortfolioUploadPlan";
 import PortfolioUploadPoint from "./PortfolioUploadPoint";
 import PortfolioUploadSiteAddress from "./PortfolioUploadSiteAddress";
 
@@ -16,7 +15,7 @@ export default function PortfolioUpload() {
       <S.PortfolioUploadWrapper>
         <PortfolioUploadInformation />
         <PortfolioUploadSiteAddress />
-        <PortfolioUploadPlan />
+        {/* <PortfolioUploadPlan /> */}
         <PortfolioUploadPoint />
         <PortfolioUploadPhoto />
         <PortfolioUploadButton />

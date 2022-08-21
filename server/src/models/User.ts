@@ -46,7 +46,7 @@ const userSchema = new db.Schema({
 // save라는 함수를 실행하기 직전 실행되는 함수
 userSchema.pre<IUserSchema>("save", async function (next) {
   const user: IUserSchema = this;
-  const password = user.password || "";
+  const password = user.password ?? "";
 
   // 정보가 변경되지 않았다면, 바로 next 실행
   if (!user.isModified("password")) {
