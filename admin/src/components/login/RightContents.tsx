@@ -2,7 +2,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import ReactDom from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 // components
 import { passwordValidation } from "../../utils/Validation";
@@ -12,6 +12,7 @@ import api from "../../api/api";
 import { errorTextHandle, isBlank, isResSuccess } from "../../ex/ex";
 import useClickOutside from "../../utils/useClickOutside";
 import { userDataFetch } from "../../state/atom";
+import CustomModal from "../modal/CustomModal";
 
 export default function RightContents() {
   // push
@@ -76,16 +77,12 @@ export default function RightContents() {
 
   return (
     <S.Wrapper>
-      {isOpen &&
-        errorCode &&
-        ReactDom.createPortal(
-          <ServerFailModal
-            title={errorTextHandle(errorCode)}
-            onClickOkButton={() => setIsOpen((prev) => false)}
-          />,
-          // @ts-ignore
-          document.getElementById("modal-root")
-        )}
+      {isOpen && errorCode && (
+        <CustomModal
+          title={errorTextHandle(errorCode)}
+          onClick={() => setIsOpen((prev) => false)}
+        />
+      )}
       <S.RightArticle>
         <S.RightTitle>SignIn</S.RightTitle>
         <S.LoginForm>

@@ -1,5 +1,9 @@
+import { resJsonType } from "../utils/resType";
+
 const createPortfolio = (req: Request, res: Response) => {
-  return;
+
+  const resJson = resJsonType<null>(null, 200)
+  return resJson;
 };
 const updatePortfolio = () => {};
 const deletePortfolio = () => {};
