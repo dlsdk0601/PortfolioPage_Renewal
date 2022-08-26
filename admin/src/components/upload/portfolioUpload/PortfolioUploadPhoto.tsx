@@ -7,7 +7,8 @@ export default function PortfolioUploadPhoto() {
     <S.PhotoWrapper>
       <S.PhotoTitle>Photo Zone</S.PhotoTitle>
       <S.InputBox>
-        <S.PhotoInput type="file" />
+        <S.PhotoLabel htmlFor="photo">+ thumnail</S.PhotoLabel>
+        <S.PhotoInput accept="image/jpeg, image/png" id="photo" type="file" />
       </S.InputBox>
     </S.PhotoWrapper>
   );
