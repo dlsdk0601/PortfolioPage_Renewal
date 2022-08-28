@@ -28,6 +28,9 @@ const portfolioSchema = new db.Schema({
   skill: { type: String },
   mainFunction: { type: String },
   detail: { type: String },
+  thumnail: { type: File },
+  banner: { type: File },
+  imgList: { type: File },
 });
 
 const Portfolio = db.model<IPortfolioSchema>("Portfolio", portfolioSchema);

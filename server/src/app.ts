@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongodbLoader from "./loaders/mongodbLoader";
 import api from "./routes";
+import fs from "fs";
 
 // express 및 포트번호
 const app = express();
@@ -29,4 +30,10 @@ mongodbLoader();
 // route
 app.use("/api", api);
 
-app.listen(config.PORT, () => console.log(`✅ server Connection Successful`));
+app.listen(config.PORT, () => {
+  const dir = "./uploads";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+  console.log(`✅ server Connection Successful`);
+});
