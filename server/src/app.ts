@@ -20,10 +20,12 @@ app.use(
 );
 
 // --  apllication/x-www-form-urlencoded 이렇게 된 데이터를 분석해서 가져옴
-app.use(bodyParser.urlencoded({ extended: true }));
+// base64를 받게 되면, 용량이 어마어마해서 늘려놓음
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 // -- application/json 을 분석해서 가져옴
-app.use(bodyParser.json());
+// base64를 받게 되면, 용량이 어마어마해서 늘려놓음
+app.use(bodyParser.json({ limit: "50mb" }));
 
 mongodbLoader();
 

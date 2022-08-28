@@ -1,6 +1,7 @@
 // lib
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import api from "../../../api/api";
+import { fileToBase64 } from "../../../ex/fileToBlob";
 import { isBlank } from "../../../ex/ex";
 import * as S from "../../../styles/upload/portfolio/PortfolioUploadPhotoStyle";
 
@@ -15,12 +16,9 @@ export default function PortfolioUploadPhoto(props: {
     const file = e.target.files[0];
     const fileUrl = URL.createObjectURL(file);
     props.setImg(fileUrl);
-    console.log(file);
+    const base64 = await fileToBase64(file);
 
-    const form = new FormData();
-    form.append("file", file);
-
-    const res = await api.fileTest(form);
+    const res = await api.fileTest({ base64 });
     console.log("res===");
     console.log(res);
   };
