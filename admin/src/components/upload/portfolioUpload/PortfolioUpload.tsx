@@ -10,8 +10,9 @@ import PortfolioUploadPoint from "./PortfolioUploadPoint";
 import PortfolioUploadSiteAddress from "./PortfolioUploadSiteAddress";
 
 export default function PortfolioUpload() {
-  const [img, setImg] = useState<File | null>(null);
-
+  const [img, setImg] = useState<string>("");
+  console.log("img===");
+  console.log(img);
   return (
     <>
       <S.PortfolioUploadWrapper>

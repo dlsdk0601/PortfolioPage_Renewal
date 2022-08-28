@@ -1,12 +1,11 @@
 // lib
 import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import api from "../../../api/api";
-import { Axios } from "../../../api/Axios";
 import { isBlank } from "../../../ex/ex";
 import * as S from "../../../styles/upload/portfolio/PortfolioUploadPhotoStyle";
 
 export default function PortfolioUploadPhoto(props: {
-  setImge: Dispatch<SetStateAction<File | null>>;
+  setImg: Dispatch<SetStateAction<string>>;
 }) {
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (isBlank(e.target?.files)) {
@@ -14,6 +13,8 @@ export default function PortfolioUploadPhoto(props: {
     }
 
     const file = e.target.files[0];
+    const fileUrl = URL.createObjectURL(file);
+    props.setImg(fileUrl);
     console.log(file);
 
     const form = new FormData();
@@ -29,7 +30,12 @@ export default function PortfolioUploadPhoto(props: {
       <S.PhotoTitle>Photo Zone</S.PhotoTitle>
       <S.InputBox>
         <S.PhotoLabel htmlFor="photo">+ thumnail</S.PhotoLabel>
-        <S.PhotoInput accept="image/jpeg, image/png" id="photo" type="file" />
+        <S.PhotoInput
+          onChange={(e) => onChangeFile(e)}
+          accept="image/jpeg, image/png"
+          id="photo"
+          type="file"
+        />
       </S.InputBox>
     </S.PhotoWrapper>
   );
