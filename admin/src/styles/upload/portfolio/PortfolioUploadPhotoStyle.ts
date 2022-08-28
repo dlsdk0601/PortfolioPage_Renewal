@@ -19,17 +19,27 @@ export const PhotoTitle = styled.h2`
 export const InputBox = styled.form`
   width: 95%;
   margin: 0 auto;
+`;
+
+export const photoBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height: 78px;
+`;
+
+export const FigureBox = styled.figure`
+  width: 50px;
+  height: 50px;
+`;
+
+export const PhotoImg = styled.img`
+  width: 100%;
+  height: 100%;
 `;
 
 export const PhotoInput = styled.input`
   display: none;
-  width: 90%;
-  height: 30px;
-  border: 1px solid #eee;
-  margin-bottom: 20px;
 `;
 
 export const PhotoLabel = styled.label`
@@ -43,6 +53,5 @@ export const PhotoLabel = styled.label`
   align-items: center;
   font-size: 18px;
   cursor: pointer;
-  margin-bottom: 20px;
   margin-right: 20px;
 `;

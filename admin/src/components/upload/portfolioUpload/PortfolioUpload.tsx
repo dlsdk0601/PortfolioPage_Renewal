@@ -19,7 +19,7 @@ export default function PortfolioUpload() {
         <PortfolioUploadInformation />
         <PortfolioUploadSiteAddress />
         <PortfolioUploadPoint />
-        <PortfolioUploadPhoto setImg={setImg} />
+        <PortfolioUploadPhoto img={img} setImg={setImg} />
         <PortfolioUploadButton />
       </S.PortfolioUploadWrapper>
     </>
