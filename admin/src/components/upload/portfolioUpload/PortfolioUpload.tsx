@@ -1,5 +1,5 @@
 // lib
-import React from "react";
+import React, { useState } from "react";
 
 // components
 import * as S from "../../../styles/upload/portfolio/PortfolioUploadStyle";
@@ -10,14 +10,15 @@ import PortfolioUploadPoint from "./PortfolioUploadPoint";
 import PortfolioUploadSiteAddress from "./PortfolioUploadSiteAddress";
 
 export default function PortfolioUpload() {
+  const [img, setImg] = useState<File | null>(null);
+
   return (
     <>
       <S.PortfolioUploadWrapper>
         <PortfolioUploadInformation />
         <PortfolioUploadSiteAddress />
-        {/* <PortfolioUploadPlan /> */}
         <PortfolioUploadPoint />
-        <PortfolioUploadPhoto />
+        <PortfolioUploadPhoto setImg={setImg} />
         <PortfolioUploadButton />
       </S.PortfolioUploadWrapper>
     </>

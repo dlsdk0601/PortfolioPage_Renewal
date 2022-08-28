@@ -36,7 +36,7 @@ function App() {
   return (
     <Wrapper>
       <BrowserRouter>
-        {user.token && <NavBar />}
+        {!user.token && <NavBar />}
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/main" element={<MainPage />} />

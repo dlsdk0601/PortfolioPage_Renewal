@@ -10,7 +10,7 @@ export const Axios = axios.create({
 
 Axios.interceptors.response.use(
   async (response: AxiosResponse) => {
-    return response;
+    return response.data;
   },
   (err) => Promise.reject(err)
 );

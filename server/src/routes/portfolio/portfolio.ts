@@ -3,7 +3,7 @@ import portfolioController from "../../controllers/portfolio-controller";
 
 const portfolioRouter = express.Router();
 
-// portfolioRouter.post("/create-portfolio", portfolioController.createPortfolio);
+portfolioRouter.post("/create-portfolio", portfolioController.createPortfolio);
 // portfolioRouter.put("/update-portfolio", portfolioController.updatePortfolio);
 // portfolioRouter.delete(
 //   "/delete-portfolio",
