@@ -31,3 +31,24 @@ export const userDataFetch = selector<IUserData>({
     set(userData, newValue);
   },
 });
+
+export const portfolio = atom({
+  key: "portfolio",
+  default: {
+    title: "",
+    fromDate: Date | null,
+    toDate: Date | null,
+    githubLink: "",
+    siteUrl: "",
+    participation: "",
+    skill: "",
+    mainFunction: "",
+    detail: "",
+    thumnail: "",
+    banner: "",
+    slideImg1: "",
+    slideImg2: "",
+    slideImg3: "",
+    slideImg4: "",
+  },
+});

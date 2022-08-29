@@ -9,6 +9,7 @@ export interface ResType<T> {
   data: T | null;
 }
 
+// 더미 포폴
 export interface IPortfolioList {
   num: number;
   name: string;
@@ -58,4 +59,22 @@ export interface IUserData {
   name: string;
   role: number | null;
   token: string | null;
+}
+
+export interface AtomPortfolio {
+  title: string;
+  fromDate: Date | null;
+  toDate: Date | null;
+  githubLink: string;
+  siteUrl: string;
+  participation: string;
+  skill: string;
+  mainFunction: string;
+  detail: string;
+  thumnail: string;
+  banner: string;
+  slideImg1: string;
+  slideImg2: string;
+  slideImg3: string;
+  slideImg4: string;
 }
