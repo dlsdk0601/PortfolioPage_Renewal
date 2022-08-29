@@ -8,8 +8,8 @@ const api = {
   userData: async (): Promise<ResType<IUserData>> =>
     await Axios.get("/authification"),
 
-  fileTest: async ({ base64 }: { base64: string }): Promise<ResType<string>> =>
-    await Axios.post("/create-portfolio", base64),
+  fileTest: async (request: { base64: string }): Promise<ResType<string>> =>
+    await Axios.post("/create-portfolio", request),
 };
 
 export default api;

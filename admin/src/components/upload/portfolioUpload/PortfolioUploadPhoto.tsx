@@ -30,11 +30,11 @@ export default function PortfolioUploadPhoto() {
     const object = { ...portfolioState, [e.target.id]: fileUrl };
     setPortfolioState(object);
 
-    // const base64 = await fileToBase64(file);
+    const base64 = await fileToBase64(file);
 
-    // const res = await api.fileTest({ base64 });
-    // console.log("res===");
-    // console.log(res);
+    const res = await api.fileTest({ base64 });
+    console.log("res===");
+    console.log(res);
   };
 
   console.log("portfolioState===");
