@@ -73,8 +73,8 @@ export interface AtomPortfolio {
   detail: string;
   thumnail: string;
   banner: string;
-  slideImg1: string;
-  slideImg2: string;
-  slideImg3: string;
-  slideImg4: string;
+  slideImage1: string;
+  slideImage2: string;
+  slideImage3: string;
+  slideImage4: string;
 }

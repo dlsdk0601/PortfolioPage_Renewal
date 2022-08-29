@@ -1,29 +1,44 @@
 // lib
-import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
+import React, { ChangeEvent } from "react";
+import { useRecoilState } from "recoil";
+
+// component
+import { portfolio } from "../../../state/atom";
 import api from "../../../api/api";
 import { fileToBase64 } from "../../../ex/fileToBlob";
 import { isBlank } from "../../../ex/ex";
+import { AtomPortfolio } from "../../../api/schema";
+
+// style
 import * as S from "../../../styles/upload/portfolio/PortfolioUploadPhotoStyle";
 
-export default function PortfolioUploadPhoto(props: {
-  img: string;
-  setImg: Dispatch<SetStateAction<string>>;
-}) {
+export default function PortfolioUploadPhoto() {
+  const [portfolioState, setPortfolioState] =
+    useRecoilState<AtomPortfolio>(portfolio);
+
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (isBlank(e.target?.files)) {
       return;
     }
 
+    if (isBlank(e.target.id)) {
+      return;
+    }
+
     const file = e.target.files[0];
     const fileUrl = URL.createObjectURL(file);
+    const object = { ...portfolioState, [e.target.id]: fileUrl };
+    setPortfolioState(object);
 
-    props.setImg(fileUrl);
     // const base64 = await fileToBase64(file);
 
     // const res = await api.fileTest({ base64 });
     // console.log("res===");
     // console.log(res);
   };
+
+  console.log("portfolioState===");
+  console.log(portfolioState);
 
   return (
     <S.PhotoWrapper>
@@ -38,62 +53,79 @@ export default function PortfolioUploadPhoto(props: {
             type="file"
           />
           <S.FigureBox>
-            {props.img && <S.PhotoImg src={props.img} alt="phto" />}
+            {portfolioState.thumnail && (
+              <S.PhotoImg src={portfolioState.thumnail} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
         <S.photoBox>
-          <S.PhotoLabel htmlFor="mainPhoto">+ mainPhoto</S.PhotoLabel>
+          <S.PhotoLabel htmlFor="banner">+ mainPhoto</S.PhotoLabel>
           <S.PhotoInput
+            onChange={(e) => onChangeFile(e)}
             accept="image/jpeg, image/png"
-            id="mainPhoto"
+            id="banner"
             type="file"
           />
           <S.FigureBox>
-            <S.PhotoImg src="" alt="phto" />
+            {portfolioState.banner && (
+              <S.PhotoImg src={portfolioState.banner} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
         <S.photoBox>
-          <S.PhotoLabel htmlFor="banner1">+ banner1</S.PhotoLabel>
+          <S.PhotoLabel htmlFor="slideImage1">+ slideImage1</S.PhotoLabel>
           <S.PhotoInput
+            onChange={(e) => onChangeFile(e)}
             accept="image/jpeg, image/png"
-            id="banner1"
+            id="slideImage1"
             type="file"
           />
           <S.FigureBox>
-            <S.PhotoImg src="" alt="phto" />
+            {portfolioState.slideImage1 && (
+              <S.PhotoImg src={portfolioState.slideImage1} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
         <S.photoBox>
-          <S.PhotoLabel htmlFor="banner2">+ banner2</S.PhotoLabel>
+          <S.PhotoLabel htmlFor="slideImage2">+ slideImage2</S.PhotoLabel>
           <S.PhotoInput
+            onChange={(e) => onChangeFile(e)}
             accept="image/jpeg, image/png"
-            id="banner2"
+            id="slideImage2"
             type="file"
           />
           <S.FigureBox>
-            <S.PhotoImg src="" alt="phto" />
+            {portfolioState.slideImage2 && (
+              <S.PhotoImg src={portfolioState.slideImage2} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
         <S.photoBox>
-          <S.PhotoLabel htmlFor="banner3">+ banner3</S.PhotoLabel>
+          <S.PhotoLabel htmlFor="slideImage3">+ slideImage3</S.PhotoLabel>
           <S.PhotoInput
+            onChange={(e) => onChangeFile(e)}
             accept="image/jpeg, image/png"
-            id="banner3"
+            id="slideImage3"
             type="file"
           />
           <S.FigureBox>
-            <S.PhotoImg src="" alt="phto" />
+            {portfolioState.slideImage3 && (
+              <S.PhotoImg src={portfolioState.slideImage3} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
         <S.photoBox>
-          <S.PhotoLabel htmlFor="banner4">+ banner4</S.PhotoLabel>
+          <S.PhotoLabel htmlFor="slideImage4">+ slideImage4</S.PhotoLabel>
           <S.PhotoInput
+            onChange={(e) => onChangeFile(e)}
             accept="image/jpeg, image/png"
-            id="banner4"
+            id="slideImage4"
             type="file"
           />
           <S.FigureBox>
-            <S.PhotoImg src="" alt="phto" />
+            {portfolioState.slideImage4 && (
+              <S.PhotoImg src={portfolioState.slideImage4} alt="phto" />
+            )}
           </S.FigureBox>
         </S.photoBox>
       </S.InputBox>

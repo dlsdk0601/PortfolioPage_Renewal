@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import api from "../api/api";
-import { IUserData } from "../api/schema";
+import { AtomPortfolio, IUserData } from "../api/schema";
 import { isBlank, isResSuccess } from "../ex/ex";
 
 export const userData = atom<IUserData>({
@@ -32,12 +32,12 @@ export const userDataFetch = selector<IUserData>({
   },
 });
 
-export const portfolio = atom({
+export const portfolio = atom<AtomPortfolio>({
   key: "portfolio",
   default: {
     title: "",
-    fromDate: Date | null,
-    toDate: Date | null,
+    fromDate: null,
+    toDate: null,
     githubLink: "",
     siteUrl: "",
     participation: "",
@@ -46,9 +46,9 @@ export const portfolio = atom({
     detail: "",
     thumnail: "",
     banner: "",
-    slideImg1: "",
-    slideImg2: "",
-    slideImg3: "",
-    slideImg4: "",
+    slideImage1: "",
+    slideImage2: "",
+    slideImage3: "",
+    slideImage4: "",
   },
 });
