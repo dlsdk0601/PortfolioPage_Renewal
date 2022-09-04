@@ -1,3 +1,5 @@
+// 대부분 get 방식일텐데, setting이 필요할까 ??
+// react-query 고민중
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { basicApiUrl } from "../ex/config";
 
@@ -10,12 +12,7 @@ export const Axios = axios.create({
 
 Axios.interceptors.request.use(
   async (config: AxiosRequestConfig) => {
-    config.headers = config.headers ?? {};
-    const accessToken = sessionStorage.getItem("accessToken");
-    if (!!accessToken) {
-      config.headers.Authorization = accessToken;
-    }
-
+    // 대부분 get 방식일꺼라서, header setting 필요 x
     return config;
   },
   (err) => Promise.reject(err)
