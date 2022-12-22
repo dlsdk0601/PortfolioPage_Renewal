@@ -1,68 +1,56 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es2021": true
+  env: {
+    browser: true,
+    es2021: true,
   },
-  "extends": [
-    "airbnb"
-  ],
-  "globals": {
-    "Atomic": "readonly",
-    "SharedArrayBuffer": "readonly",
+  extends: ["airbnb-base"],
+  globals: {
+    Atomic: "readonly",
+    SharedArrayBuffer: "readonly",
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  "plugins": [
-    "import",
-    "@typescript-eslint"
-  ],
-  "rules": {
-    "indent": [
+  plugins: ["import"],
+  rules: {
+    indent: [
       "error",
       2,
       {
-        "SwitchCase": 1
-      }
+        SwitchCase: 1,
+      },
     ],
-    "quotes": [
+    quotes: [
       "error",
       "double",
       {
-        "avoidEscape": true
-      }
-    ],
-    "@typescript-eslint/quotes": [
-      "error",
-      "double"
+        avoidEscape: true,
+      },
     ],
     // '' (x) -> "" (O)
     "linebreak-style": 0,
     // endOfLine \n (o) \r\n (x), 맥을 더 많이 쓰는 듯?
     "no-unused-vars": 0,
     // 사용안한 변수 경고 x
-    "@typescript-eslint/no-unused-vars": "warn",
-    // 사용안한 변수는 경고
     "import/extensions": [
       "error",
       "ignorePackages",
       {
-        "js": "never",
-        "ts": "never",
-      }
+        js: "never",
+        ts: "never",
+      },
     ],
     // 확장자가 달려있다면 error 표시, js, ts는 예외
     "no-multiple-empty-lines": [
       "error",
       {
-        "max": 2,
-        "maxBOF": 1
-      }
+        max: 2,
+        maxBOF: 1,
+      },
     ],
     "arrow-body-style": 0,
     // 화살표 함수 안에 return 사용 활성화
@@ -107,25 +95,21 @@ module.exports = {
     // 19자 이후 >(closing-tag) 허용......
     "prefer-destructuring": 0,
     // if문에서 크기 비교는 항상 > 으로 하기로 한다.
-    "yoda": 0,
+    yoda: 0,
     // function 앞에서 공간 넣기 O
     "space-before-function-paren": 0,
-    "react/jsx-curly-newline": 0
+    "react/jsx-curly-newline": 0,
   },
-  "settings": {
+  settings: {
     "import/resolver": {
-      "node": {
-        "extensions": [
-          ".js",
-          ".ts",
-          ".d.ts"
-        ]
-      }
+      node: {
+        extensions: [".js", ".ts", ".d.ts"],
+      },
     },
     "eslint.workingDirectories": [
       {
-        "mode": "auto"
-      }
-    ]
-  }
-}
+        mode: "auto",
+      },
+    ],
+  },
+};
