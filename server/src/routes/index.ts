@@ -4,7 +4,7 @@ import { portfolioRouter } from "./portfolio/portfolio";
 
 const api = express.Router();
 
-api.use("/v1", authRouter);
-api.use("/v1", portfolioRouter);
+api.use("/auth", authRouter);
+api.use("/portfolio", portfolioRouter);
 
 export default api;
