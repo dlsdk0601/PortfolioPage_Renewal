@@ -1,8 +1,7 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cors from "cors";
-import fs from "fs";
-import config from "./config";
+import bodyParser from "body-parser";
+import config from "./config/index";
 import mongodbLoader from "./loaders/mongodbLoader";
 import api from "./routes";
 
@@ -16,7 +15,7 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-  })
+  }),
 );
 
 // --  apllication/x-www-form-urlencoded 이렇게 된 데이터를 분석해서 가져옴
@@ -37,7 +36,5 @@ app.listen(config.PORT, () => {
   // if (!fs.existsSync(dir)) {
   //   fs.mkdirSync(dir);
   // }
-  console.log(`✅ server Connection Successful`);
+  console.log("✅ server Connection Successful");
 });
-
-
