@@ -1,10 +1,7 @@
-import { Response, Request } from "express";
-import { IUserSchema } from "../models/User";
-import User from "../models/User";
-import bcrypt from "bcrypt";
-import config from "../config";
-import jwt from "jsonwebtoken";
+import { Response, Request, NextFunction } from "express";
+import User, { IUserSchema } from "../models/User";
 import { resJsonType } from "../utils/resType";
+import authService from "../services/auth-service";
 
 // register
 const register = (req: Request, res: Response) => {
@@ -26,43 +23,14 @@ const register = (req: Request, res: Response) => {
 };
 
 // login
-const login = async (req: Request, res: Response) => {
-  const {
-    body: { id, password },
-  } = req;
-
-  // 요청된 아이디을 db에서 찾기
-  const userInfo: IUserSchema | null = await User.findOne({ id });
-
-  // 유저 정보가 없다면
-  if (!userInfo) {
-    const resJson = resJsonType<null>(null, 601, "아이디가 존재하지 않습니다.");
-    return res.json(resJson);
+const login = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = authService.loginService(req.body, next);
+    return res.status(200).json(data);
+  } catch (err: any) {
+    console.log(err);
+    next(err);
   }
-
-  // 아이디가 db에 있으면 비밀번호 확인
-  const check = await bcrypt.compare(password, userInfo.password);
-
-  if (!check) {
-    const resJson = resJsonType<null>(null, 602, "비밀번호가 틀렸습니다.");
-    return res.json(resJson);
-  }
-
-  // 비밀번호 맞으면 토근 생성
-  const { _id: userId } = userInfo;
-  const secret = config.JWT_SECRET || "";
-  const token = jwt.sign({ userId }, secret, { expiresIn: "3d" });
-  userInfo.token = token;
-
-  const userInfoSave: IUserSchema | null = await userInfo.save();
-
-  if (!userInfoSave) {
-    const resJson = resJsonType<null>(null, 603, "토큰 저장 실패");
-    return res.json(resJson);
-  }
-
-  const resJson = resJsonType<IUserSchema>(userInfo, 200);
-  return res.json(resJson);
 };
 
 // userData
