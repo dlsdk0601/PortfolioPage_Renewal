@@ -2,10 +2,18 @@
 
 // 모든 interface는 여기서 관리한다.
 
-export interface ResJsonType<T> {
-  data: T;
+export interface IResponseJson<T> {
+  data: T | null;
   code: number;
   msg: string | null;
   result: boolean;
   error: Error | null;
+}
+
+export interface ICustomError extends Error {
+  code: number;
+}
+
+export interface ICustomRequest extends Request {
+  userId: string;
 }
