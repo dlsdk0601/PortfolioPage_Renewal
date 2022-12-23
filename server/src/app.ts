@@ -1,4 +1,4 @@
-import express from "express";
+import express, { ErrorRequestHandler, NextFunction, Request } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import config from "./config/index";
@@ -31,10 +31,17 @@ mongodbLoader();
 // route
 app.use("/api/v1", api);
 
+app.use(((err, req, res, next) => {
+  console.log(err);
+  const code = err.code ?? 0;
+  const status = 500;
+  const msg = err?.message ?? "";
+  const data = err?.data ?? null;
+
+  return res.status(status).json({ msg, data, code, result: false, error: err });
+}) as ErrorRequestHandler);
+
 app.listen(config.PORT, () => {
   const dir = "./uploads";
-  // if (!fs.existsSync(dir)) {
-  //   fs.mkdirSync(dir);
-  // }
   console.log("✅ server Connection Successful");
 });
