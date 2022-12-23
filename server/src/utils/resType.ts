@@ -1,11 +1,6 @@
-import { ResJsonType } from "./schema";
+import { IResponseJson } from "./schema";
 
-export function resJsonType<T>(
-  data: T,
-  code: number,
-  msg?: string,
-  err?: Error
-) {
+export function resJsonType<T>(data: T, code: number, msg?: string, err?: Error): IResponseJson<T> {
   return {
     data: data ?? null,
     code: code ?? 200,
