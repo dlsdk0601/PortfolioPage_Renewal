@@ -8,10 +8,8 @@ module.exports = {
     Atomic: "readonly",
     SharedArrayBuffer: "readonly",
   },
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
     ecmaVersion: "latest",
     sourceType: "module",
   },
