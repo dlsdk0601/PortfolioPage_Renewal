@@ -1,6 +1,5 @@
 import db from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 const slatRounds = 10;
 
@@ -9,7 +8,7 @@ export interface IUserSchema extends db.Document {
   id: string;
   email?: string;
   password: string;
-  role?: number;
+  role?: string;
   token?: string;
   tokenExp?: number;
 }
@@ -32,8 +31,8 @@ const userSchema = new db.Schema({
     minlength: 5,
   },
   role: {
-    type: Number,
-    default: 0, //일반 유저 (관리자는 1)
+    type: String,
+    default: "ADMIN", // 일반 유저 (관리자는 1)
   },
   token: {
     type: String,
