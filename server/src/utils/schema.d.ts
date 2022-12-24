@@ -2,6 +2,8 @@
 
 // 모든 interface는 여기서 관리한다.
 
+import { ValidationError } from "express-validator";
+
 export interface IResponseJson<T> {
   data: T | null;
   code: number;
@@ -12,4 +14,5 @@ export interface IResponseJson<T> {
 
 export interface ICustomError extends Error {
   code: number;
+  data: ValidationError[];
 }
