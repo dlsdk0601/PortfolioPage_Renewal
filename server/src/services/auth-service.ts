@@ -1,18 +1,34 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { NextFunction, Request } from "express";
+import { Request } from "express";
 import User, { IUserSchema } from "../models/User";
 import { resJsonType } from "../utils/resType";
 import config from "../config";
-import { ICustomError, ICustomRequest } from "../utils/schema";
+import { ICustomError } from "../utils/schema";
+import { errorCode, errorText } from "../utils/constant";
 
-const loginService = async (
-  body: {
-    id: string;
-    password: string;
-  },
-  next: NextFunction,
-) => {
+const registerService = async (req: Request) => {
+  try {
+    const user = new User(req.body);
+
+    // 스키마를 만들고 model로 감쌌는데 결국 하나의 class를 만든것이고,
+    // user는 우리가 만든 User의 인스턴스가 되는거임.
+    // 때문에 서버통신에서 각 해당 값들 잘 넘겨줘야함.
+    user.save((err: Error | null, userInfo: IUserSchema) => {
+      if (err) {
+        const error = new Error(errorText.saveFailDB) as ICustomError;
+        error.code = errorCode.saveFailDB;
+        throw error;
+      }
+
+      return resJsonType<IUserSchema>(userInfo, 200);
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+const loginService = async (body: { id: string; password: string }) => {
   try {
     const { id, password } = body;
 
@@ -21,8 +37,8 @@ const loginService = async (
 
     // 유저 정보가 없다면
     if (!userInfo) {
-      const error = new Error("아이디가 존재하지 않습니다.") as ICustomError;
-      error.code = 601;
+      const error = new Error(errorText.notFindUserId) as ICustomError;
+      error.code = errorCode.notFindUserId;
       throw error;
     }
 
@@ -30,8 +46,8 @@ const loginService = async (
     const check = await bcrypt.compare(password, userInfo.password);
 
     if (!check) {
-      const error = new Error("비밀번호가 틀렸습니다.") as ICustomError;
-      error.code = 602;
+      const error = new Error(errorText.wrongPassword) as ICustomError;
+      error.code = errorCode.wrongPassword;
       throw error;
     }
 
@@ -44,28 +60,41 @@ const loginService = async (
     const userInfoSave: IUserSchema | null = await userInfo.save();
 
     if (!userInfoSave) {
-      const error = new Error("토큰 저장 실패") as ICustomError;
-      error.code = 603;
+      const error = new Error(errorText.saveFailToken) as ICustomError;
+      error.code = errorCode.saveFailToken;
       throw error;
     }
 
     const resJson = resJsonType<IUserSchema>(userInfo, 200);
 
     return resJson;
-  } catch (err: any) {
+  } catch (err) {
     console.log(err);
-    next(err);
+    throw err;
   }
 };
 
-const getUserDataService = async (req: ICustomRequest, next: NextFunction) => {
+const getUserDataService = async (req: Request) => {
   try {
     const userId = req.userId;
+
+    const userData: IUserSchema | null = await User.findOne({ _id: userId });
+
+    if (!userData) {
+      const error = new Error(errorText.notFindUserData) as ICustomError;
+      error.code = errorCode.notFindUserData;
+      throw error;
+    }
+
+    return resJsonType<IUserSchema>(userData, errorCode.success);
   } catch (err) {
-    next(err);
+    console.log(err);
+    throw err;
   }
 };
 
 export default {
   loginService,
+  getUserDataService,
+  registerService,
 };
