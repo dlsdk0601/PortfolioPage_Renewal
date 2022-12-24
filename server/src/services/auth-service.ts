@@ -1,14 +1,24 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request } from "express";
+import { validationResult } from "express-validator";
 import User, { IUserSchema } from "../models/User";
 import { resJsonType } from "../utils/resType";
 import config from "../config";
 import { ICustomError } from "../utils/schema";
-import { errorCode, errorText } from "../utils/constant";
+import { ERROR_CUSTOM_CODE, ERROR_TEXT, STATUS_CODE } from "../utils/constant";
 
 const registerService = async (req: Request) => {
   try {
+    const error = validationResult(req);
+
+    if (!error.isEmpty()) {
+      const err = new Error("validation failed.") as ICustomError;
+      err.code = 422;
+      err.data = error.array();
+      throw err;
+    }
+
     const user = new User(req.body);
 
     // 스키마를 만들고 model로 감쌌는데 결국 하나의 class를 만든것이고,
@@ -16,8 +26,8 @@ const registerService = async (req: Request) => {
     // 때문에 서버통신에서 각 해당 값들 잘 넘겨줘야함.
     user.save((err: Error | null, userInfo: IUserSchema) => {
       if (err) {
-        const error = new Error(errorText.saveFailDB) as ICustomError;
-        error.code = errorCode.saveFailDB;
+        const error = new Error(ERROR_TEXT.saveFailDB) as ICustomError;
+        error.code = ERROR_CUSTOM_CODE.saveFailDB;
         throw error;
       }
 
@@ -37,8 +47,8 @@ const loginService = async (body: { id: string; password: string }) => {
 
     // 유저 정보가 없다면
     if (!userInfo) {
-      const error = new Error(errorText.notFindUserId) as ICustomError;
-      error.code = errorCode.notFindUserId;
+      const error = new Error(ERROR_TEXT.notFindUserId) as ICustomError;
+      error.code = ERROR_CUSTOM_CODE.notFindUserId;
       throw error;
     }
 
@@ -46,8 +56,8 @@ const loginService = async (body: { id: string; password: string }) => {
     const check = await bcrypt.compare(password, userInfo.password);
 
     if (!check) {
-      const error = new Error(errorText.wrongPassword) as ICustomError;
-      error.code = errorCode.wrongPassword;
+      const error = new Error(ERROR_TEXT.wrongPassword) as ICustomError;
+      error.code = ERROR_CUSTOM_CODE.wrongPassword;
       throw error;
     }
 
@@ -60,8 +70,8 @@ const loginService = async (body: { id: string; password: string }) => {
     const userInfoSave: IUserSchema | null = await userInfo.save();
 
     if (!userInfoSave) {
-      const error = new Error(errorText.saveFailToken) as ICustomError;
-      error.code = errorCode.saveFailToken;
+      const error = new Error(ERROR_TEXT.saveFailToken) as ICustomError;
+      error.code = ERROR_CUSTOM_CODE.saveFailToken;
       throw error;
     }
 
@@ -81,12 +91,12 @@ const getUserDataService = async (req: Request) => {
     const userData: IUserSchema | null = await User.findOne({ _id: userId });
 
     if (!userData) {
-      const error = new Error(errorText.notFindUserData) as ICustomError;
-      error.code = errorCode.notFindUserData;
+      const error = new Error(ERROR_TEXT.notFindUserData) as ICustomError;
+      error.code = ERROR_CUSTOM_CODE.notFindUserData;
       throw error;
     }
 
-    return resJsonType<IUserSchema>(userData, errorCode.success);
+    return resJsonType<IUserSchema>(userData, STATUS_CODE.success);
   } catch (err) {
     console.log(err);
     throw err;

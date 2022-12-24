@@ -1,10 +1,11 @@
 import express from "express";
 import { authRouter } from "./auth/auth";
 import { portfolioRouter } from "./portfolio/portfolio";
+import { ROUTER } from "../utils/constant";
 
 const api = express.Router();
 
-api.use("/auth", authRouter);
-api.use("/portfolio", portfolioRouter);
+api.use(ROUTER.auth, authRouter);
+api.use(ROUTER.portfolio, portfolioRouter);
 
 export default api;

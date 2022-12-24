@@ -1,18 +1,18 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { ErrorRequestHandler, NextFunction, Request, RequestParamHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ICustomError } from "../utils/schema";
 import envConfig from "../config";
-import { errorCode, errorText } from "../utils/constant";
+import { ERROR_CUSTOM_CODE, ERROR_TEXT } from "../utils/constant";
 
 dotenv.config();
 
-const isAuth = ((_, req, res, next) => {
+const isAuth = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.Authorization ?? "";
 
   if (!authHeader || typeof authHeader !== "string") {
-    const error = new Error(errorText.notAuthenticated) as ICustomError;
-    error.code = errorCode.notAuthenticated;
+    const error = new Error(ERROR_TEXT.notAuthenticated) as ICustomError;
+    error.code = ERROR_CUSTOM_CODE.notAuthenticated;
     throw error;
   }
 
@@ -22,8 +22,8 @@ const isAuth = ((_, req, res, next) => {
     const decodedToken = jwt.verify(token, envConfig.JWT_SECRET);
 
     if (!decodedToken || typeof decodedToken === "string") {
-      const error = new Error(errorText.notAuthenticated) as ICustomError;
-      error.code = errorCode.notAuthenticated;
+      const error = new Error(ERROR_TEXT.notAuthenticated) as ICustomError;
+      error.code = ERROR_CUSTOM_CODE.notAuthenticated;
       throw error;
     }
 
@@ -34,6 +34,6 @@ const isAuth = ((_, req, res, next) => {
     console.log(err);
     next(err);
   }
-}) as ErrorRequestHandler;
+};
 
 export default isAuth;
