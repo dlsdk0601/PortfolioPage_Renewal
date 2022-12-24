@@ -13,7 +13,3 @@ export interface IResponseJson<T> {
 export interface ICustomError extends Error {
   code: number;
 }
-
-export interface ICustomRequest extends Request {
-  userId: string;
-}
