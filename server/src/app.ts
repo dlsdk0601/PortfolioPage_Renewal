@@ -33,6 +33,7 @@ mongodbLoader();
 app.use(ROUTER.version, api);
 
 app.use(((err, req, res) => {
+  console.log("here1");
   console.log(err);
   const code = err.code ?? STATUS_CODE.fail;
   const msg = err?.message ?? "";
