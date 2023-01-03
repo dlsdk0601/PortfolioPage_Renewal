@@ -11,6 +11,8 @@ import { ERROR_CUSTOM_CODE, ERROR_TEXT, STATUS_CODE } from "../utils/constant";
 const registerService = async (req: Request) => {
   try {
     const error = validationResult(req);
+    console.log("errorSS");
+    console.log(error);
 
     if (!error.isEmpty()) {
       const err = new Error("validation failed.") as ICustomError;
@@ -34,10 +36,12 @@ const registerService = async (req: Request) => {
       return resJsonType<IUserSchema>(userInfo, 200);
     });
   } catch (err) {
+    console.log("err");
     console.log(err);
     throw err;
   }
 };
+
 const loginService = async (body: { id: string; password: string }) => {
   try {
     const { id, password } = body;
