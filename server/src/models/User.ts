@@ -40,6 +40,9 @@ const userSchema = new db.Schema({
   tokenExp: {
     type: Number,
   },
+  createdAt: {
+    type: Date,
+  },
 });
 
 // save라는 함수를 실행하기 직전 실행되는 함수
