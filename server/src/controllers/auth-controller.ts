@@ -25,24 +25,41 @@ const register = async (req: Request, res: Response) => {
 };
 
 // login
-const login = async (req: Request, res: Response, next: NextFunction) => {
+const login = async (req: Request, res: Response) => {
   try {
     const data = authService.loginService(req.body);
     return res.status(STATUS_CODE.success).json(data);
-  } catch (err: any) {
-    console.log(err);
-    next(err);
+  } catch (error) {
+    console.log(error);
+
+    const err = error as ICustomError;
+
+    const code = err.code ?? STATUS_CODE.fail;
+    const msg = err?.message ?? "";
+    const errorData = err?.data[0] ?? null;
+
+    return res
+      .status(STATUS_CODE.fail)
+      .json({ msg, data: null, code, result: false, error: errorData });
   }
 };
 
 // userData
-const userData = async (req: Request, res: Response, next: NextFunction) => {
+const userData = async (req: Request, res: Response) => {
   try {
     const data = await authService.getUserDataService(req);
     return res.status(STATUS_CODE.success).json(data);
-  } catch (err) {
-    console.log(err);
-    next(err);
+  } catch (error) {
+    console.log(error);
+    const err = error as ICustomError;
+
+    const code = err.code ?? STATUS_CODE.fail;
+    const msg = err?.message ?? "";
+    const errorData = err?.data[0] ?? null;
+
+    return res
+      .status(STATUS_CODE.fail)
+      .json({ msg, data: null, code, result: false, error: errorData });
   }
 };
 
