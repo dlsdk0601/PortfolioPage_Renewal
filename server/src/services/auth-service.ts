@@ -11,8 +11,6 @@ import { ERROR_CUSTOM_CODE, ERROR_TEXT, STATUS_CODE } from "../utils/constant";
 const registerService = async (req: Request) => {
   try {
     const error = validationResult(req);
-    console.log("errorSS");
-    console.log(error);
 
     if (!error.isEmpty()) {
       const err = new Error("validation failed.") as ICustomError;
@@ -21,24 +19,19 @@ const registerService = async (req: Request) => {
       throw err;
     }
 
+    req.body.createdAt = new Date();
     const user = new User(req.body);
 
     // 스키마를 만들고 model로 감쌌는데 결국 하나의 class를 만든것이고,
     // user는 우리가 만든 User의 인스턴스가 되는거임.
     // 때문에 서버통신에서 각 해당 값들 잘 넘겨줘야함.
-    user.save((err: Error | null, userInfo: IUserSchema) => {
-      if (err) {
-        const error = new Error(ERROR_TEXT.saveFailDB) as ICustomError;
-        error.code = ERROR_CUSTOM_CODE.saveFailDB;
-        throw error;
-      }
+    const userInfo = await user.save();
 
-      return resJsonType<IUserSchema>(userInfo, 200);
-    });
-  } catch (err) {
-    console.log("err");
-    console.log(err);
-    throw err;
+    return resJsonType<IUserSchema>(userInfo, 200);
+  } catch {
+    const error = new Error(ERROR_TEXT.saveFailDB) as ICustomError;
+    error.code = ERROR_CUSTOM_CODE.saveFailDB;
+    throw error;
   }
 };
 
